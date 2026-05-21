@@ -1,22 +1,55 @@
 {
   "vehiculos_activos": {
-    "JNU540": {
-      "id": "3EDC9850",
-      "placa": "JNU540",
-      "tipo": "carro",
-      "nombre_tipo": "Automóvil",
-      "entrada": "2026-05-20T21:33:04.684666",
+    "ZBL87A": {
+      "id": "A1A5AB31",
+      "placa": "ZBL87A",
+      "tipo": "moto",
+      "nombre_tipo": "Motocicleta",
+      "entrada": "2026-05-20T22:30:54.333475",
       "salida": null,
       "duracion_minutos": null,
       "valor_cobrado": null,
       "estado": "activo"
     },
     "NCO45A": {
-      "id": "40C527D1",
+      "id": "FFD07EFA",
       "placa": "NCO45A",
       "tipo": "moto",
       "nombre_tipo": "Motocicleta",
-      "entrada": "2026-05-20T21:37:46.426319",
+      "entrada": "2026-05-20T23:49:33.604809",
+      "salida": null,
+      "duracion_minutos": null,
+      "valor_cobrado": null,
+      "estado": "activo"
+    },
+    "ERF567": {
+      "id": "7B4F7A53",
+      "placa": "ERF567",
+      "tipo": "carro",
+      "nombre_tipo": "Automóvil",
+      "entrada": "2026-05-20T23:49:37.451636",
+      "salida": null,
+      "duracion_minutos": null,
+      "valor_cobrado": null,
+      "estado": "activo"
+    },
+    "JNU540": {
+      "id": "7CCE4C09",
+      "placa": "JNU540",
+      "tipo": "carro",
+      "nombre_tipo": "Automóvil",
+      "entrada": "2026-05-20T23:53:58.668862",
+      "salida": null,
+      "duracion_minutos": null,
+      "valor_cobrado": null,
+      "estado": "activo"
+    },
+    "OFO640": {
+      "id": "F9C13636",
+      "placa": "OFO640",
+      "tipo": "carro",
+      "nombre_tipo": "Automóvil",
+      "entrada": "2026-05-20T23:57:07.089965",
       "salida": null,
       "duracion_minutos": null,
       "valor_cobrado": null,
@@ -107,6 +140,78 @@
       "valor_cobrado": 1500,
       "estado": "pagado",
       "detalle_cobro": "Fracción (≤30 min)"
+    },
+    {
+      "id": "40C527D1",
+      "placa": "NCO45A",
+      "tipo": "moto",
+      "nombre_tipo": "Motocicleta",
+      "entrada": "2026-05-20T21:37:46.426319",
+      "salida": "2026-05-20T21:55:04.787015",
+      "duracion_minutos": 17,
+      "valor_cobrado": 800,
+      "estado": "pagado",
+      "detalle_cobro": "Fracción (≤30 min)"
+    },
+    {
+      "id": "17B06AA7",
+      "placa": "TXU90E",
+      "tipo": "moto",
+      "nombre_tipo": "Motocicleta",
+      "entrada": "2026-05-20T21:58:50.968262",
+      "salida": "2026-05-20T22:08:31.054802",
+      "duracion_minutos": 9,
+      "valor_cobrado": 800,
+      "estado": "pagado",
+      "detalle_cobro": "Fracción (≤30 min)"
+    },
+    {
+      "id": "3EDC9850",
+      "placa": "JNU540",
+      "tipo": "carro",
+      "nombre_tipo": "Automóvil",
+      "entrada": "2026-05-20T21:33:04.684666",
+      "salida": "2026-05-20T22:08:31.173206",
+      "duracion_minutos": 35,
+      "valor_cobrado": 1500,
+      "estado": "pagado",
+      "detalle_cobro": "0h 35min"
+    },
+    {
+      "id": "370619CB",
+      "placa": "ERV67B",
+      "tipo": "moto",
+      "nombre_tipo": "Motocicleta",
+      "entrada": "2026-05-20T21:57:31.318939",
+      "salida": "2026-05-20T22:08:31.346738",
+      "duracion_minutos": 11,
+      "valor_cobrado": 800,
+      "estado": "pagado",
+      "detalle_cobro": "Fracción (≤30 min)"
+    },
+    {
+      "id": "1C59C29E",
+      "placa": "YUT56B",
+      "tipo": "moto",
+      "nombre_tipo": "Motocicleta",
+      "entrada": "2026-05-20T22:00:04.348104",
+      "salida": "2026-05-20T22:25:09.662226",
+      "duracion_minutos": 25,
+      "valor_cobrado": 800,
+      "estado": "pagado",
+      "detalle_cobro": "Fracción (≤30 min)"
+    },
+    {
+      "id": "3875A0BE",
+      "placa": "ZBT259",
+      "tipo": "carro",
+      "nombre_tipo": "Automóvil",
+      "entrada": "2026-05-20T22:02:46.957457",
+      "salida": "2026-05-20T22:25:11.506546",
+      "duracion_minutos": 22,
+      "valor_cobrado": 1500,
+      "estado": "pagado",
+      "detalle_cobro": "Fracción (≤30 min)"
     }
   ],
   "reservas": [
@@ -125,8 +230,35 @@
       "tipo": "moto",
       "nombre_tipo": "Motocicleta",
       "hora_esperada": "13:12",
-      "estado": "pendiente",
+      "estado": "completada",
       "creado_en": "2026-05-20T21:37:56.854632"
+    },
+    {
+      "id": "76A6D2C4",
+      "placa": "YUT56B",
+      "tipo": "moto",
+      "nombre_tipo": "Motocicleta",
+      "hora_esperada": "12:12",
+      "estado": "completada",
+      "creado_en": "2026-05-20T21:59:55.448819"
+    },
+    {
+      "id": "E2F55948",
+      "placa": "ERF567",
+      "tipo": "carro",
+      "nombre_tipo": "Automóvil",
+      "hora_esperada": "2026-05-21T12:12:00",
+      "estado": "completada",
+      "creado_en": "2026-05-20T23:04:14.923073"
+    },
+    {
+      "id": "1E3A2E9F",
+      "placa": "NCO45A",
+      "tipo": "moto",
+      "nombre_tipo": "Motocicleta",
+      "hora_esperada": "2026-05-20T10:00:00",
+      "estado": "completada",
+      "creado_en": "2026-05-20T23:07:18.776911"
     }
   ]
 }

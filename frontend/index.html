@@ -1,13 +1,22 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Parqueadero Unibagué</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=IBM+Plex+Mono:wght@400;500&family=Figtree:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=IBM+Plex+Mono:wght@400;500&family=Figtree:wght@300;400;500;600&display=swap"
+    rel="stylesheet" />
   <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
     :root {
       --bg: #0d0f14;
@@ -157,9 +166,10 @@
       position: relative;
     }
 
-    .upload-area:hover, .upload-area.dragover {
+    .upload-area:hover,
+    .upload-area.dragover {
       border-color: var(--accent);
-      background: rgba(240,192,64,0.04);
+      background: rgba(240, 192, 64, 0.04);
     }
 
     .upload-area input {
@@ -171,7 +181,10 @@
       height: 100%;
     }
 
-    .upload-icon { font-size: 2.5rem; margin-bottom: 0.5rem; }
+    .upload-icon {
+      font-size: 2.5rem;
+      margin-bottom: 0.5rem;
+    }
 
     .upload-text {
       font-size: 0.9rem;
@@ -203,7 +216,7 @@
       position: absolute;
       top: 8px;
       right: 8px;
-      background: rgba(0,0,0,0.7);
+      background: rgba(0, 0, 0, 0.7);
       border: 1px solid var(--border2);
       color: var(--text);
       border-radius: 50%;
@@ -261,13 +274,13 @@
     }
 
     .tipo-badge.active-moto {
-      background: rgba(74,158,255,0.15);
+      background: rgba(74, 158, 255, 0.15);
       border-color: var(--blue);
       color: var(--blue);
     }
 
     .tipo-badge.active-carro {
-      background: rgba(34,214,150,0.15);
+      background: rgba(34, 214, 150, 0.15);
       border-color: var(--green);
       color: var(--green);
     }
@@ -319,14 +332,18 @@
       gap: 6px;
     }
 
-    .btn:active { transform: scale(0.97); }
+    .btn:active {
+      transform: scale(0.97);
+    }
 
     .btn-primary {
       background: var(--accent);
       color: #1a1200;
     }
 
-    .btn-primary:hover { background: var(--accent2); }
+    .btn-primary:hover {
+      background: var(--accent2);
+    }
 
     .btn-danger {
       background: var(--red-dim);
@@ -334,7 +351,9 @@
       border: 1px solid var(--red);
     }
 
-    .btn-danger:hover { background: rgba(255,82,82,0.2); }
+    .btn-danger:hover {
+      background: rgba(255, 82, 82, 0.2);
+    }
 
     .btn-ghost {
       background: var(--surface2);
@@ -358,7 +377,9 @@
       margin-top: 1rem;
     }
 
-    .btn-scan:hover { background: rgba(74,158,255,0.1); }
+    .btn-scan:hover {
+      background: rgba(74, 158, 255, 0.1);
+    }
 
     /* ── Manual entry ── */
     .manual-entry {
@@ -390,7 +411,8 @@
       letter-spacing: 0.06em;
     }
 
-    .form-input, .form-select {
+    .form-input,
+    .form-select {
       background: var(--surface2);
       border: 1px solid var(--border);
       border-radius: var(--radius-sm);
@@ -404,11 +426,14 @@
       outline: none;
     }
 
-    .form-input:focus, .form-select:focus {
+    .form-input:focus,
+    .form-select:focus {
       border-color: var(--accent);
     }
 
-    .form-select option { background: var(--surface2); }
+    .form-select option {
+      background: var(--surface2);
+    }
 
     /* ── Tabla activos ── */
     .activos-section {
@@ -449,7 +474,9 @@
       transition: border-color 0.2s;
     }
 
-    .vehiculo-card:hover { border-color: var(--border2); }
+    .vehiculo-card:hover {
+      border-color: var(--border2);
+    }
 
     .vc-placa {
       font-family: var(--mono);
@@ -508,15 +535,19 @@
       transition: all 0.15s;
     }
 
-    .btn-sm:active { transform: scale(0.96); }
+    .btn-sm:active {
+      transform: scale(0.96);
+    }
 
     .btn-salida {
       background: var(--red-dim);
       color: var(--red);
-      border: 1px solid rgba(255,82,82,0.4);
+      border: 1px solid rgba(255, 82, 82, 0.4);
     }
 
-    .btn-salida:hover { background: rgba(255,82,82,0.2); }
+    .btn-salida:hover {
+      background: rgba(255, 82, 82, 0.2);
+    }
 
     .empty-state {
       text-align: center;
@@ -525,7 +556,10 @@
       font-size: 0.85rem;
     }
 
-    .empty-icon { font-size: 2rem; margin-bottom: 0.5rem; }
+    .empty-icon {
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+    }
 
     /* ── Panel derecho ── */
     .side-panel {
@@ -566,9 +600,17 @@
       font-family: var(--mono);
     }
 
-    .stat-accent { color: var(--accent); }
-    .stat-green { color: var(--green); }
-    .stat-blue { color: var(--blue); }
+    .stat-accent {
+      color: var(--accent);
+    }
+
+    .stat-green {
+      color: var(--green);
+    }
+
+    .stat-blue {
+      color: var(--blue);
+    }
 
     /* ── Tarifas ── */
     .tarifa-card {
@@ -586,7 +628,9 @@
       margin-bottom: 10px;
     }
 
-    .tarifa-icon { font-size: 1.2rem; }
+    .tarifa-icon {
+      font-size: 1.2rem;
+    }
 
     .tarifa-nombre {
       font-weight: 600;
@@ -601,7 +645,10 @@
       font-size: 0.8rem;
     }
 
-    .tarifa-key { color: var(--text3); font-family: var(--mono); }
+    .tarifa-key {
+      color: var(--text3);
+      font-family: var(--mono);
+    }
 
     .tarifa-val {
       font-family: var(--mono);
@@ -615,7 +662,9 @@
       padding: 0.75rem 0;
     }
 
-    .historial-item:last-child { border-bottom: none; }
+    .historial-item:last-child {
+      border-bottom: none;
+    }
 
     .hi-top {
       display: flex;
@@ -663,10 +712,24 @@
       z-index: 999;
     }
 
-    #toast.show { transform: translateX(-50%) translateY(0); }
-    #toast.toast-ok { border-color: var(--green); color: var(--green); }
-    #toast.toast-err { border-color: var(--red); color: var(--red); }
-    #toast.toast-info { border-color: var(--accent); color: var(--accent); }
+    #toast.show {
+      transform: translateX(-50%) translateY(0);
+    }
+
+    #toast.toast-ok {
+      border-color: var(--green);
+      color: var(--green);
+    }
+
+    #toast.toast-err {
+      border-color: var(--red);
+      color: var(--red);
+    }
+
+    #toast.toast-info {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
 
     /* ── Spinner ── */
     .spinner {
@@ -679,7 +742,11 @@
       display: inline-block;
     }
 
-    @keyframes spin { to { transform: rotate(360deg); } }
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
 
     /* ── Ticker ── */
     .ticker-grid {
@@ -716,13 +783,15 @@
       display: none;
       position: fixed;
       inset: 0;
-      background: rgba(0,0,0,0.75);
+      background: rgba(0, 0, 0, 0.75);
       z-index: 200;
       align-items: center;
       justify-content: center;
     }
 
-    .modal-overlay.open { display: flex; }
+    .modal-overlay.open {
+      display: flex;
+    }
 
     .modal {
       background: var(--surface);
@@ -764,535 +833,570 @@
       font-family: var(--mono);
     }
 
-    .modal-row-key { color: var(--text3); }
-    .modal-row-val { color: var(--text); }
+    .modal-row-key {
+      color: var(--text3);
+    }
+
+    .modal-row-val {
+      color: var(--text);
+    }
 
     @media (max-width: 900px) {
-      .layout { grid-template-columns: 1fr; }
-      .side-panel { border-right: none; border-top: 1px solid var(--border); }
-      .header-stats { display: none; }
+      .layout {
+        grid-template-columns: 1fr;
+      }
+
+      .side-panel {
+        border-right: none;
+        border-top: 1px solid var(--border);
+      }
+
+      .header-stats {
+        display: none;
+      }
     }
   </style>
 </head>
+
 <body>
 
-<header>
-  <div class="logo">
-    <div class="logo-icon">🅿️</div>
-    <div>
-      <div class="logo-text">Parqueadero Unibagué</div>
-      <div class="logo-sub">Sistema de control vehicular</div>
-    </div>
-  </div>
-  <div class="header-stats">
-    <div class="hstat">
-      <div class="hstat-val" id="h-activos">—</div>
-      <div class="hstat-label">En parqueadero</div>
-    </div>
-    <div class="hstat">
-      <div class="hstat-val" id="h-ingresos">—</div>
-      <div class="hstat-label">Ingresos hoy</div>
-    </div>
-    <div class="hstat">
-      <div class="hstat-val" id="h-hora" style="color: var(--text2);">—</div>
-      <div class="hstat-label">Hora actual</div>
-    </div>
-  </div>
-</header>
-
-<div class="layout">
-
-  <main class="main-panel">
-
-    <div class="ocr-zone">
-      <div class="section-title">📷 Reconocimiento OCR de placa</div>
-
-      <div style="display:flex; gap:8px; margin-bottom:1rem;">
-        <button class="btn btn-primary" id="btn-abrir-camara" onclick="abrirCamara()" style="flex:1; justify-content:center;">
-          📹 Usar cámara en vivo
-        </button>
-        <button class="btn btn-ghost" id="btn-subir-archivo" onclick="document.getElementById('img-input').click()" style="flex:1; justify-content:center;">
-          🖼️ Subir imagen
-        </button>
-        <input type="file" id="img-input" accept="image/*" style="display:none;" />
+  <header>
+    <div class="logo">
+      <div class="logo-icon">🅿️</div>
+      <div>
+        <div class="logo-text">Parqueadero Unibagué</div>
+        <div class="logo-sub">Sistema de control vehicular</div>
       </div>
+    </div>
+    <div class="header-stats">
+      <div class="hstat">
+        <div class="hstat-val" id="h-activos">—</div>
+        <div class="hstat-label">En parqueadero</div>
+      </div>
+      <div class="hstat">
+        <div class="hstat-val" id="h-ingresos">—</div>
+        <div class="hstat-label">Ingresos hoy</div>
+      </div>
+      <div class="hstat">
+        <div class="hstat-val" id="h-hora" style="color: var(--text2);">—</div>
+        <div class="hstat-label">Hora actual</div>
+      </div>
+    </div>
+  </header>
 
-      <div id="camara-container" style="display:none; position:relative; background:#000; border-radius:var(--radius-sm); overflow:hidden;">
-        <video id="video-camara" autoplay playsinline muted
-          style="width:100%; max-height:280px; object-fit:cover; display:block;"></video>
-        <div style="position:absolute; inset:0; display:flex; align-items:center; justify-content:center; pointer-events:none;">
-          <div style="width:70%; height:35%; border:2px solid var(--accent); border-radius:6px; box-shadow:0 0 0 9999px rgba(0,0,0,0.35);">
-            <div style="position:absolute; top:-18px; left:50%; transform:translateX(-50%); font-size:0.65rem; color:var(--accent); font-family:var(--mono); white-space:nowrap; background:rgba(0,0,0,0.6); padding:2px 8px; border-radius:4px;">
-              Centra la placa aquí
-            </div>
-          </div>
-        </div>
-        <div style="position:absolute; top:8px; right:8px; display:flex; gap:6px;">
-          <select id="sel-camara" onchange="cambiarCamara()"
-            style="background:rgba(0,0,0,0.7); color:var(--text); border:1px solid var(--border2); border-radius:6px; font-size:0.7rem; padding:4px 8px; font-family:var(--mono);">
-          </select>
-          <button onclick="cerrarCamara()"
-            style="background:rgba(0,0,0,0.7); border:1px solid var(--border2); color:var(--text); border-radius:6px; padding:4px 10px; cursor:pointer; font-size:0.75rem;">
-            ✕
+  <div class="layout">
+
+    <main class="main-panel">
+
+      <div class="ocr-zone">
+        <div class="section-title">📷 Reconocimiento OCR de placa</div>
+
+        <div style="display:flex; gap:8px; margin-bottom:1rem;">
+          <button class="btn btn-primary" id="btn-abrir-camara" onclick="abrirCamara()"
+            style="flex:1; justify-content:center;">
+            📹 Usar cámara en vivo
           </button>
-        </div>
-        <div style="position:absolute; bottom:12px; left:0; right:0; display:flex; justify-content:center; gap:10px;">
-          <button onclick="capturarFoto()"
-            style="background:var(--accent); color:#1a1200; border:none; border-radius:50px; padding:10px 28px; font-weight:600; font-size:0.95rem; cursor:pointer; font-family:var(--sans);">
-            📸 Capturar y analizar
+          <button class="btn btn-ghost" id="btn-subir-archivo" onclick="document.getElementById('img-input').click()"
+            style="flex:1; justify-content:center;">
+            🖼️ Subir imagen
           </button>
+          <input type="file" id="img-input" accept="image/*" style="display:none;" />
         </div>
-        <canvas id="canvas-captura" style="display:none;"></canvas>
-      </div>
 
-      <div class="upload-area" id="upload-area" style="display:none;">
-        <div class="upload-icon">🖼️</div>
-        <div class="upload-text">Arrastra una imagen o haz clic para seleccionar</div>
-        <div class="upload-sub">JPG, PNG, WEBP · Máx 10 MB</div>
-      </div>
-
-      <div id="preview-container" style="display:none; position:relative; margin-top:0.5rem;">
-        <img id="preview-img" alt="Vista previa"
-          style="width:100%; max-height:260px; object-fit:contain; border-radius:var(--radius-sm); background:#000;" />
-        <button class="clear-btn" onclick="clearPreview()" title="Quitar imagen">✕</button>
-      </div>
-
-      <button class="btn btn-scan" id="btn-scan" onclick="ejecutarOCR()" style="display:none;">
-        <span id="scan-icon">🔍</span>
-        <span id="scan-text">Analizar con YOLOv8 + OCR</span>
-      </button>
-
-      <div class="ocr-result" id="ocr-result">
-        <div class="placa-display">
-          <div>
-            <div style="font-size: 0.65rem; color: var(--text3); font-family: var(--mono); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 4px;">Placa detectada</div>
-            <div class="placa-text" id="ocr-placa">—</div>
-          </div>
-          <div class="placa-tipo">
-            <div style="display: flex; flex-direction: column; align-items: flex-end; gap: 6px;">
-              <div style="font-size: 0.7rem; color: var(--text3);">Tipo vehículo:</div>
-              <div style="display: flex; gap: 6px;">
-                <span class="tipo-badge" id="badge-moto" onclick="setTipo('moto')">🏍 Moto</span>
-                <span class="tipo-badge" id="badge-carro" onclick="setTipo('carro')">🚗 Carro</span>
+        <div id="camara-container"
+          style="display:none; position:relative; background:#000; border-radius:var(--radius-sm); overflow:hidden;">
+          <video id="video-camara" autoplay playsinline muted
+            style="width:100%; max-height:280px; object-fit:cover; display:block;"></video>
+          <div
+            style="position:absolute; inset:0; display:flex; align-items:center; justify-content:center; pointer-events:none;">
+            <div
+              style="width:70%; height:35%; border:2px solid var(--accent); border-radius:6px; box-shadow:0 0 0 9999px rgba(0,0,0,0.35);">
+              <div
+                style="position:absolute; top:-18px; left:50%; transform:translateX(-50%); font-size:0.65rem; color:var(--accent); font-family:var(--mono); white-space:nowrap; background:rgba(0,0,0,0.6); padding:2px 8px; border-radius:4px;">
+                Centra la placa aquí
               </div>
             </div>
           </div>
+          <div style="position:absolute; top:8px; right:8px; display:flex; gap:6px;">
+            <select id="sel-camara" onchange="cambiarCamara()"
+              style="background:rgba(0,0,0,0.7); color:var(--text); border:1px solid var(--border2); border-radius:6px; font-size:0.7rem; padding:4px 8px; font-family:var(--mono);">
+            </select>
+            <button onclick="cerrarCamara()"
+              style="background:rgba(0,0,0,0.7); border:1px solid var(--border2); color:var(--text); border-radius:6px; padding:4px 10px; cursor:pointer; font-size:0.75rem;">
+              ✕
+            </button>
+          </div>
+          <div style="position:absolute; bottom:12px; left:0; right:0; display:flex; justify-content:center; gap:10px;">
+            <button onclick="capturarFoto()"
+              style="background:var(--accent); color:#1a1200; border:none; border-radius:50px; padding:10px 28px; font-weight:600; font-size:0.95rem; cursor:pointer; font-family:var(--sans);">
+              📸 Capturar y analizar
+            </button>
+          </div>
+          <canvas id="canvas-captura" style="display:none;"></canvas>
         </div>
-        <div class="confianza-bar">
-          <span>OCR</span>
-          <div class="bar-track"><div class="bar-fill" id="conf-bar" style="width:0%"></div></div>
-          <span id="conf-val">0%</span>
+
+        <div class="upload-area" id="upload-area" style="display:none;">
+          <div class="upload-icon">🖼️</div>
+          <div class="upload-text">Arrastra una imagen o haz clic para seleccionar</div>
+          <div class="upload-sub">JPG, PNG, WEBP · Máx 10 MB</div>
+        </div>
+
+        <div id="preview-container" style="display:none; position:relative; margin-top:0.5rem;">
+          <img id="preview-img" alt="Vista previa"
+            style="width:100%; max-height:260px; object-fit:contain; border-radius:var(--radius-sm); background:#000;" />
+          <button class="clear-btn" onclick="clearPreview()" title="Quitar imagen">✕</button>
+        </div>
+
+        <button class="btn btn-scan" id="btn-scan" onclick="ejecutarOCR()" style="display:none;">
+          <span id="scan-icon">🔍</span>
+          <span id="scan-text">Analizar con YOLOv8 + OCR</span>
+        </button>
+
+        <div class="ocr-result" id="ocr-result">
+          <div class="placa-display">
+            <div>
+              <div
+                style="font-size: 0.65rem; color: var(--text3); font-family: var(--mono); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 4px;">
+                Placa detectada</div>
+              <div class="placa-text" id="ocr-placa">—</div>
+            </div>
+            <div class="placa-tipo">
+              <div style="display: flex; flex-direction: column; align-items: flex-end; gap: 6px;">
+                <div style="font-size: 0.7rem; color: var(--text3);">Tipo vehículo:</div>
+                <div style="display: flex; gap: 6px;">
+                  <span class="tipo-badge" id="badge-moto" onclick="setTipo('moto')">🏍 Moto</span>
+                  <span class="tipo-badge" id="badge-carro" onclick="setTipo('carro')">🚗 Carro</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="confianza-bar">
+            <span>OCR</span>
+            <div class="bar-track">
+              <div class="bar-fill" id="conf-bar" style="width:0%"></div>
+            </div>
+            <span id="conf-val">0%</span>
+          </div>
+          <div class="btn-row">
+            <button class="btn btn-primary" onclick="registrarEntrada()">✅ Registrar entrada</button>
+            <button class="btn btn-ghost" onclick="editarPlaca()">✏️ Editar placa</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="manual-entry">
+        <div class="section-title">⌨️ Registro manual</div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Placa</label>
+            <input class="form-input" id="manual-placa" placeholder="ABC123" maxlength="6"
+              oninput="this.value=this.value.toUpperCase()" />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Tipo</label>
+            <select class="form-select" id="manual-tipo">
+              <option value="carro">🚗 Automóvil</option>
+              <option value="moto">🏍 Motocicleta</option>
+            </select>
+          </div>
         </div>
         <div class="btn-row">
-          <button class="btn btn-primary" onclick="registrarEntrada()">✅ Registrar entrada</button>
-          <button class="btn btn-ghost" onclick="editarPlaca()">✏️ Editar placa</button>
+          <button class="btn btn-primary" onclick="registrarManual()">✅ Registrar entrada</button>
+          <button class="btn btn-danger" onclick="registrarSalidaManual()">🚪 Registrar salida</button>
         </div>
-      </div>
-    </div>
-
-    <div class="manual-entry">
-      <div class="section-title">⌨️ Registro manual</div>
-      <div class="form-row">
-        <div class="form-group">
-          <label class="form-label">Placa</label>
-          <input class="form-input" id="manual-placa" placeholder="ABC123" maxlength="6" oninput="this.value=this.value.toUpperCase()" />
-        </div>
-        <div class="form-group">
-          <label class="form-label">Tipo</label>
-          <select class="form-select" id="manual-tipo">
-            <option value="carro">🚗 Automóvil</option>
-            <option value="moto">🏍 Motocicleta</option>
-          </select>
-        </div>
-      </div>
-      <div class="btn-row">
-        <button class="btn btn-primary" onclick="registrarManual()">✅ Registrar entrada</button>
-        <button class="btn btn-danger" onclick="registrarSalidaManual()">🚪 Registrar salida</button>
-      </div>
-    </div>
-
-    <div class="manual-entry">
-      <div class="section-title">📅 Reservas Activas</div>
-      
-      <div class="form-row" style="margin-bottom: 1rem; border-bottom: 1px solid var(--border); padding-bottom: 1rem;">
-        <div class="form-group">
-          <input class="form-input" id="res-placa" placeholder="PLACA" maxlength="6" oninput="this.value=this.value.toUpperCase()" />
-        </div>
-        <div class="form-group">
-          <select class="form-select" id="res-tipo">
-            <option value="carro">🚗 Automóvil</option>
-            <option value="moto">🏍 Motocicleta</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <input type="time" class="form-input" id="res-hora" />
-        </div>
-        <button class="btn btn-primary" onclick="crearReserva()">+ Reservar</button>
       </div>
 
-      <div id="reservas-list">
-        <div class="empty-state">Sin reservas pendientes</div>
-      </div>
-    </div>
+      <div class="manual-entry">
+        <div class="section-title">📅 Reservas Activas</div>
 
-    <div class="activos-section">
-      <div class="section-header">
-        <div class="section-title" style="margin-bottom: 0;">🚘 En parqueadero ahora</div>
-        <span class="badge-count" id="badge-activos">0</span>
+        <div class="form-row"
+          style="margin-bottom: 1rem; border-bottom: 1px solid var(--border); padding-bottom: 1rem;">
+          <div class="form-group">
+            <input class="form-input" id="res-placa" placeholder="PLACA" maxlength="6"
+              oninput="this.value=this.value.toUpperCase()" />
+          </div>
+          <div class="form-group">
+            <select class="form-select" id="res-tipo">
+              <option value="carro">🚗 Automóvil</option>
+              <option value="moto">🏍 Motocicleta</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <input type="time" class="form-input" id="res-hora" />
+            <label>Fecha de reserva:</label>
+            <input type="date" id="res-fecha" />
+          </div>
+          <button class="btn btn-primary" onclick="crearReserva()">+ Reservar</button>
+        </div>
+
+        <div id="reservas-list">
+          <div class="empty-state">Sin reservas pendientes</div>
+        </div>
       </div>
-      <div id="activos-list">
+
+      <div class="activos-section">
+        <div class="section-header">
+          <div class="disponibilidad-card">
+            <h3>Cupos Disponibles</h3>
+            <div id="contador-cupos" class="big-number">--</div>
+            <p>/ 100 Totales</p>
+          </div>
+          <div class="section-title" style="margin-bottom: 0;">🚘 En parqueadero ahora</div>
+          <span class="badge-count" id="badge-activos">0</span>
+        </div>
+        <div id="activos-list">
+          <div class="empty-state">
+            <div class="empty-icon">🏁</div>
+            <div>Sin vehículos activos</div>
+          </div>
+        </div>
+      </div>
+
+    </main>
+
+    <aside class="side-panel">
+
+      <div class="section-title">📊 Estadísticas del día</div>
+      <div class="stats-grid" style="margin-bottom: 1.5rem;">
+        <div class="stat-card">
+          <div class="stat-val stat-accent" id="stat-activos">0</div>
+          <div class="stat-label">Activos</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-val stat-green" id="stat-ingresos">$0</div>
+          <div class="stat-label">Ingresos</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-val stat-blue" id="stat-motos">0</div>
+          <div class="stat-label">Motos hoy</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-val" id="stat-carros">0</div>
+          <div class="stat-label">Carros hoy</div>
+        </div>
+      </div>
+
+      <div class="ticker-grid">
+        <div class="ticker-box">
+          <div class="ticker-val" id="tk-total" style="color: var(--text);">0</div>
+          <div class="ticker-label">Total hoy</div>
+        </div>
+        <div class="ticker-box">
+          <div class="ticker-val" id="tk-prom" style="color: var(--accent);">$0</div>
+          <div class="ticker-label">Promedio</div>
+        </div>
+        <div class="ticker-box">
+          <div class="ticker-val" id="tk-cap" style="color: var(--text2);">—</div>
+          <div class="ticker-label">Capacidad</div>
+        </div>
+      </div>
+
+      <div class="section-title">💰 Tarifas vigentes</div>
+
+      <div class="tarifa-card">
+        <div class="tarifa-tipo">
+          <span class="tarifa-icon">🚗</span>
+          <span class="tarifa-nombre">Automóvil</span>
+        </div>
+        <div class="tarifa-row">
+          <span class="tarifa-key">Por hora</span>
+          <span class="tarifa-val" id="tarifa-carro-hora">$3.000</span>
+        </div>
+        <div class="tarifa-row">
+          <span class="tarifa-key">Fracción (≤30 min)</span>
+          <span class="tarifa-val" id="tarifa-carro-frac">$1.500</span>
+        </div>
+      </div>
+
+      <div class="tarifa-card" style="margin-bottom: 1.5rem;">
+        <div class="tarifa-tipo">
+          <span class="tarifa-icon">🏍</span>
+          <span class="tarifa-nombre">Motocicleta</span>
+        </div>
+        <div class="tarifa-row">
+          <span class="tarifa-key">Por hora</span>
+          <span class="tarifa-val" id="tarifa-moto-hora">$1.500</span>
+        </div>
+        <div class="tarifa-row">
+          <span class="tarifa-key">Fracción (≤30 min)</span>
+          <span class="tarifa-val" id="tarifa-moto-frac">$800</span>
+        </div>
+      </div>
+
+      <div class="section-header" style="margin-bottom: 1rem;">
+        <div class="section-title" style="margin-bottom: 0;">📋 Últimos registros</div>
+        <button class="btn btn-ghost btn-sm" onclick="cargarHistorial()">↻</button>
+      </div>
+      <div id="historial-list">
         <div class="empty-state">
-          <div class="empty-icon">🏁</div>
-          <div>Sin vehículos activos</div>
+          <div>Sin registros</div>
         </div>
       </div>
-    </div>
 
-  </main>
+    </aside>
+  </div>
 
-  <aside class="side-panel">
-
-    <div class="section-title">📊 Estadísticas del día</div>
-    <div class="stats-grid" style="margin-bottom: 1.5rem;">
-      <div class="stat-card">
-        <div class="stat-val stat-accent" id="stat-activos">0</div>
-        <div class="stat-label">Activos</div>
+  <div class="modal-overlay" id="modal-cobro">
+    <div class="modal">
+      <div class="modal-title">💰 Cobro de salida</div>
+      <div class="modal-cobro" id="modal-cobro-val">$0</div>
+      <div class="modal-detail" id="modal-detail"></div>
+      <div class="btn-row" style="justify-content: flex-end;">
+        <button class="btn btn-ghost" onclick="cerrarModal()">Cancelar</button>
+        <button class="btn btn-primary" onclick="confirmarSalida()">✅ Confirmar cobro</button>
       </div>
-      <div class="stat-card">
-        <div class="stat-val stat-green" id="stat-ingresos">$0</div>
-        <div class="stat-label">Ingresos</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-val stat-blue" id="stat-motos">0</div>
-        <div class="stat-label">Motos hoy</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-val" id="stat-carros">0</div>
-        <div class="stat-label">Carros hoy</div>
-      </div>
-    </div>
-
-    <div class="ticker-grid">
-      <div class="ticker-box">
-        <div class="ticker-val" id="tk-total" style="color: var(--text);">0</div>
-        <div class="ticker-label">Total hoy</div>
-      </div>
-      <div class="ticker-box">
-        <div class="ticker-val" id="tk-prom" style="color: var(--accent);">$0</div>
-        <div class="ticker-label">Promedio</div>
-      </div>
-      <div class="ticker-box">
-        <div class="ticker-val" id="tk-cap" style="color: var(--text2);">—</div>
-        <div class="ticker-label">Capacidad</div>
-      </div>
-    </div>
-
-    <div class="section-title">💰 Tarifas vigentes</div>
-
-    <div class="tarifa-card">
-      <div class="tarifa-tipo">
-        <span class="tarifa-icon">🚗</span>
-        <span class="tarifa-nombre">Automóvil</span>
-      </div>
-      <div class="tarifa-row">
-        <span class="tarifa-key">Por hora</span>
-        <span class="tarifa-val" id="tarifa-carro-hora">$3.000</span>
-      </div>
-      <div class="tarifa-row">
-        <span class="tarifa-key">Fracción (≤30 min)</span>
-        <span class="tarifa-val" id="tarifa-carro-frac">$1.500</span>
-      </div>
-    </div>
-
-    <div class="tarifa-card" style="margin-bottom: 1.5rem;">
-      <div class="tarifa-tipo">
-        <span class="tarifa-icon">🏍</span>
-        <span class="tarifa-nombre">Motocicleta</span>
-      </div>
-      <div class="tarifa-row">
-        <span class="tarifa-key">Por hora</span>
-        <span class="tarifa-val" id="tarifa-moto-hora">$1.500</span>
-      </div>
-      <div class="tarifa-row">
-        <span class="tarifa-key">Fracción (≤30 min)</span>
-        <span class="tarifa-val" id="tarifa-moto-frac">$800</span>
-      </div>
-    </div>
-
-    <div class="section-header" style="margin-bottom: 1rem;">
-      <div class="section-title" style="margin-bottom: 0;">📋 Últimos registros</div>
-      <button class="btn btn-ghost btn-sm" onclick="cargarHistorial()">↻</button>
-    </div>
-    <div id="historial-list">
-      <div class="empty-state">
-        <div>Sin registros</div>
-      </div>
-    </div>
-
-  </aside>
-</div>
-
-<div class="modal-overlay" id="modal-cobro">
-  <div class="modal">
-    <div class="modal-title">💰 Cobro de salida</div>
-    <div class="modal-cobro" id="modal-cobro-val">$0</div>
-    <div class="modal-detail" id="modal-detail"></div>
-    <div class="btn-row" style="justify-content: flex-end;">
-      <button class="btn btn-ghost" onclick="cerrarModal()">Cancelar</button>
-      <button class="btn btn-primary" onclick="confirmarSalida()">✅ Confirmar cobro</button>
     </div>
   </div>
-</div>
 
-<div id="toast"></div>
+  <div id="toast"></div>
 
-<script>
-const API = '';  // Mismo origen; cambiar a http://localhost:8000 si es diferente
+  <script>
+    const API = '';  // Mismo origen; cambiar a http://localhost:8000 si es diferente
 
-let ocrPlaca = null;
-let ocrTipo = 'carro';
-let imagenFile = null;
-let salidaPendiente = null;
+    let ocrPlaca = null;
+    let ocrTipo = 'carro';
+    let imagenFile = null;
+    let salidaPendiente = null;
 
-// ── Reloj ──
-function actualizarReloj() {
-  const ahora = new Date();
-  document.getElementById('h-hora').textContent =
-    ahora.toLocaleTimeString('es-CO', { hour: '2-digit', minute: '2-digit' });
-}
-setInterval(actualizarReloj, 1000);
-actualizarReloj();
-
-// ── Toast ──
-function toast(msg, tipo = 'info') {
-  const el = document.getElementById('toast');
-  el.textContent = msg;
-  el.className = `toast-${tipo} show`;
-  clearTimeout(el._t);
-  el._t = setTimeout(() => { el.classList.remove('show'); }, 3500);
-}
-
-// ── Cámara en vivo ──
-let streamActual = null;
-let dispositivoActual = null;
-
-async function abrirCamara() {
-  document.getElementById('upload-area').style.display = 'none';
-  document.getElementById('preview-container').style.display = 'none';
-  document.getElementById('btn-scan').style.display = 'none';
-  document.getElementById('ocr-result').style.display = 'none';
-
-  try {
-    const dispositivos = await navigator.mediaDevices.enumerateDevices();
-    const camaras = dispositivos.filter(d => d.kind === 'videoinput');
-    const sel = document.getElementById('sel-camara');
-    sel.innerHTML = '';
-    camaras.forEach((cam, i) => {
-      const opt = document.createElement('option');
-      opt.value = cam.deviceId;
-      opt.textContent = cam.label || `Cámara ${i + 1}`;
-      sel.appendChild(opt);
-    });
-    
-    const trasera = camaras.find(c => c.label.toLowerCase().includes('back') ||
-      c.label.toLowerCase().includes('rear') || c.label.toLowerCase().includes('trasera'));
-    if (trasera) sel.value = trasera.deviceId;
-
-    await iniciarStream(sel.value);
-    document.getElementById('camara-container').style.display = 'block';
-  } catch (err) {
-    if (err.name === 'NotAllowedError') {
-      toast('❌ Permiso de cámara denegado — actívalo en el navegador', 'err');
-    } else if (err.name === 'NotFoundError') {
-      toast('❌ No se encontró cámara conectada', 'err');
-    } else {
-      toast(`❌ Error cámara: ${err.message}`, 'err');
+    // ── Reloj ──
+    function actualizarReloj() {
+      const ahora = new Date();
+      document.getElementById('h-hora').textContent =
+        ahora.toLocaleTimeString('es-CO', { hour: '2-digit', minute: '2-digit' });
     }
-    document.getElementById('upload-area').style.display = 'flex';
-  }
-}
+    setInterval(actualizarReloj, 1000);
+    actualizarReloj();
 
-async function iniciarStream(deviceId) {
-  if (streamActual) streamActual.getTracks().forEach(t => t.stop());
-  const constraints = {
-    video: deviceId
-      ? { deviceId: { exact: deviceId }, width: { ideal: 1280 }, height: { ideal: 720 } }
-      : { facingMode: 'environment', width: { ideal: 1280 }, height: { ideal: 720 } }
-  };
-  streamActual = await navigator.mediaDevices.getUserMedia(constraints);
-  const video = document.getElementById('video-camara');
-  video.srcObject = streamActual;
-  dispositivoActual = deviceId;
-}
-
-async function cambiarCamara() {
-  const deviceId = document.getElementById('sel-camara').value;
-  await iniciarStream(deviceId);
-}
-
-function cerrarCamara() {
-  if (streamActual) { streamActual.getTracks().forEach(t => t.stop()); streamActual = null; }
-  document.getElementById('camara-container').style.display = 'none';
-  document.getElementById('video-camara').srcObject = null;
-}
-
-function capturarFoto() {
-  const video = document.getElementById('video-camara');
-  const canvas = document.getElementById('canvas-captura');
-  canvas.width = video.videoWidth || 1280;
-  canvas.height = video.videoHeight || 720;
-  canvas.getContext('2d').drawImage(video, 0, 0);
-
-  canvas.toBlob(blob => {
-    imagenFile = new File([blob], 'captura.jpg', { type: 'image/jpeg' });
-    const url = URL.createObjectURL(blob);
-    document.getElementById('preview-img').src = url;
-    document.getElementById('preview-container').style.display = 'block';
-    cerrarCamara();
-    document.getElementById('camara-container').style.display = 'none';
-    ejecutarOCR();
-  }, 'image/jpeg', 0.95);
-}
-
-// ── Upload / Preview ──
-const imgInput = document.getElementById('img-input');
-
-imgInput.addEventListener('change', () => {
-  if (imgInput.files[0]) mostrarPreview(imgInput.files[0]);
-});
-
-function mostrarPreview(file) {
-  imagenFile = file;
-  cerrarCamara();
-  document.getElementById('camara-container').style.display = 'none';
-  const reader = new FileReader();
-  reader.onload = e => {
-    document.getElementById('preview-img').src = e.target.result;
-    document.getElementById('preview-container').style.display = 'block';
-    document.getElementById('upload-area').style.display = 'none';
-    document.getElementById('btn-scan').style.display = 'flex';
-    document.getElementById('ocr-result').style.display = 'none';
-  };
-  reader.readAsDataURL(file);
-}
-
-function clearPreview() {
-  imagenFile = null;
-  imgInput.value = '';
-  document.getElementById('preview-container').style.display = 'none';
-  document.getElementById('upload-area').style.display = 'none';
-  document.getElementById('btn-scan').style.display = 'none';
-  document.getElementById('ocr-result').style.display = 'none';
-}
-
-// ── OCR ──
-async function ejecutarOCR() {
-  if (!imagenFile) { toast('Carga una imagen primero', 'err'); return; }
-
-  document.getElementById('scan-icon').innerHTML = '<span class="spinner"></span>';
-  document.getElementById('scan-text').textContent = 'Analizando...';
-  document.getElementById('btn-scan').disabled = true;
-
-  try {
-    const form = new FormData();
-    form.append('imagen', imagenFile);
-
-    const resp = await fetch(`${API}/api/ocr/placa`, { method: 'POST', body: form });
-    if (!resp.ok) throw new Error(await resp.text());
-    const data = await resp.json();
-
-    if (data.error) throw new Error(data.error);
-
-    ocrPlaca = data.placa;
-    ocrTipo = data.tipo_vehiculo || 'carro';
-
-    document.getElementById('ocr-placa').textContent = ocrPlaca || '—No detectada—';
-    setTipo(ocrTipo);
-
-    const conf = Math.round((data.confianza_ocr || 0) * 100);
-    document.getElementById('conf-bar').style.width = `${conf}%`;
-    document.getElementById('conf-val').textContent = `${conf}%`;
-
-    document.getElementById('ocr-result').style.display = 'block';
-
-    if (ocrPlaca) {
-      toast(`✅ Placa detectada: ${ocrPlaca} (${ocrTipo})`, 'ok');
-    } else {
-      toast('⚠️ No se detectó placa válida — verifica o ingresa manual', 'info');
+    // ── Toast ──
+    function toast(msg, tipo = 'info') {
+      const el = document.getElementById('toast');
+      el.textContent = msg;
+      el.className = `toast-${tipo} show`;
+      clearTimeout(el._t);
+      el._t = setTimeout(() => { el.classList.remove('show'); }, 3500);
     }
-  } catch (err) {
-    toast(`Error OCR: ${err.message}`, 'err');
-    console.error(err);
-  } finally {
-    document.getElementById('scan-icon').textContent = '🔍';
-    document.getElementById('scan-text').textContent = 'Analizar con YOLOv8 + OCR';
-    document.getElementById('btn-scan').disabled = false;
-  }
-}
 
-function setTipo(tipo) {
-  ocrTipo = tipo;
-  document.getElementById('badge-moto').className = 'tipo-badge' + (tipo === 'moto' ? ' active-moto' : '');
-  document.getElementById('badge-carro').className = 'tipo-badge' + (tipo === 'carro' ? ' active-carro' : '');
-}
+    // ── Cámara en vivo ──
+    let streamActual = null;
+    let dispositivoActual = null;
 
-function editarPlaca() {
-  const nueva = prompt('Ingresa la placa correcta (sin guión):', ocrPlaca || '');
-  if (nueva) {
-    ocrPlaca = nueva.toUpperCase().replace(/[\s\-]/g, '');
-    document.getElementById('ocr-placa').textContent = ocrPlaca;
-    toast(`Placa actualizada: ${ocrPlaca}`, 'info');
-  }
-}
+    async function abrirCamara() {
+      document.getElementById('upload-area').style.display = 'none';
+      document.getElementById('preview-container').style.display = 'none';
+      document.getElementById('btn-scan').style.display = 'none';
+      document.getElementById('ocr-result').style.display = 'none';
 
-// ── Registro entrada ──
-async function registrarEntrada(placa = ocrPlaca, tipo = ocrTipo) {
-  if (!placa) { toast('No hay placa para registrar', 'err'); return; }
+      try {
+        const dispositivos = await navigator.mediaDevices.enumerateDevices();
+        const camaras = dispositivos.filter(d => d.kind === 'videoinput');
+        const sel = document.getElementById('sel-camara');
+        sel.innerHTML = '';
+        camaras.forEach((cam, i) => {
+          const opt = document.createElement('option');
+          opt.value = cam.deviceId;
+          opt.textContent = cam.label || `Cámara ${i + 1}`;
+          sel.appendChild(opt);
+        });
 
-  try {
-    const resp = await fetch(`${API}/api/vehiculo/entrada`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ placa, tipo }),
+        const trasera = camaras.find(c => c.label.toLowerCase().includes('back') ||
+          c.label.toLowerCase().includes('rear') || c.label.toLowerCase().includes('trasera'));
+        if (trasera) sel.value = trasera.deviceId;
+
+        await iniciarStream(sel.value);
+        document.getElementById('camara-container').style.display = 'block';
+      } catch (err) {
+        if (err.name === 'NotAllowedError') {
+          toast('❌ Permiso de cámara denegado — actívalo en el navegador', 'err');
+        } else if (err.name === 'NotFoundError') {
+          toast('❌ No se encontró cámara conectada', 'err');
+        } else {
+          toast(`❌ Error cámara: ${err.message}`, 'err');
+        }
+        document.getElementById('upload-area').style.display = 'flex';
+      }
+    }
+
+    async function iniciarStream(deviceId) {
+      if (streamActual) streamActual.getTracks().forEach(t => t.stop());
+      const constraints = {
+        video: deviceId
+          ? { deviceId: { exact: deviceId }, width: { ideal: 1280 }, height: { ideal: 720 } }
+          : { facingMode: 'environment', width: { ideal: 1280 }, height: { ideal: 720 } }
+      };
+      streamActual = await navigator.mediaDevices.getUserMedia(constraints);
+      const video = document.getElementById('video-camara');
+      video.srcObject = streamActual;
+      dispositivoActual = deviceId;
+    }
+
+    async function cambiarCamara() {
+      const deviceId = document.getElementById('sel-camara').value;
+      await iniciarStream(deviceId);
+    }
+
+    function cerrarCamara() {
+      if (streamActual) { streamActual.getTracks().forEach(t => t.stop()); streamActual = null; }
+      document.getElementById('camara-container').style.display = 'none';
+      document.getElementById('video-camara').srcObject = null;
+    }
+
+    function capturarFoto() {
+      const video = document.getElementById('video-camara');
+      const canvas = document.getElementById('canvas-captura');
+      canvas.width = video.videoWidth || 1280;
+      canvas.height = video.videoHeight || 720;
+      canvas.getContext('2d').drawImage(video, 0, 0);
+
+      canvas.toBlob(blob => {
+        imagenFile = new File([blob], 'captura.jpg', { type: 'image/jpeg' });
+        const url = URL.createObjectURL(blob);
+        document.getElementById('preview-img').src = url;
+        document.getElementById('preview-container').style.display = 'block';
+        cerrarCamara();
+        document.getElementById('camara-container').style.display = 'none';
+        ejecutarOCR();
+      }, 'image/jpeg', 0.95);
+    }
+
+    // ── Upload / Preview ──
+    const imgInput = document.getElementById('img-input');
+
+    imgInput.addEventListener('change', () => {
+      if (imgInput.files[0]) mostrarPreview(imgInput.files[0]);
     });
-    const data = await resp.json();
-    if (!resp.ok) throw new Error(data.detail || JSON.stringify(data));
 
-    toast(data.mensaje, 'ok');
-    clearPreview();
-    document.getElementById('ocr-result').style.display = 'none';
-    await Promise.all([cargarActivos(), cargarEstadisticas()]);
-  } catch (err) {
-    toast(`❌ ${err.message}`, 'err');
-  }
-}
+    function mostrarPreview(file) {
+      imagenFile = file;
+      cerrarCamara();
+      document.getElementById('camara-container').style.display = 'none';
+      const reader = new FileReader();
+      reader.onload = e => {
+        document.getElementById('preview-img').src = e.target.result;
+        document.getElementById('preview-container').style.display = 'block';
+        document.getElementById('upload-area').style.display = 'none';
+        document.getElementById('btn-scan').style.display = 'flex';
+        document.getElementById('ocr-result').style.display = 'none';
+      };
+      reader.readAsDataURL(file);
+    }
 
-async function registrarManual() {
-  const placa = document.getElementById('manual-placa').value.trim().toUpperCase();
-  const tipo = document.getElementById('manual-tipo').value;
-  if (!placa) { toast('Ingresa una placa', 'err'); return; }
-  await registrarEntrada(placa, tipo);
-  document.getElementById('manual-placa').value = '';
-}
+    function clearPreview() {
+      imagenFile = null;
+      imgInput.value = '';
+      document.getElementById('preview-container').style.display = 'none';
+      document.getElementById('upload-area').style.display = 'none';
+      document.getElementById('btn-scan').style.display = 'none';
+      document.getElementById('ocr-result').style.display = 'none';
+    }
 
-// ── Registro salida ──
-async function iniciarSalida(placa) {
-  try {
-    const resp = await fetch(`${API}/api/vehiculo/salida`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ placa }),
-    });
-    const data = await resp.json();
-    if (!resp.ok) throw new Error(data.detail || JSON.stringify(data));
+    // ── OCR ──
+    async function ejecutarOCR() {
+      if (!imagenFile) { toast('Carga una imagen primero', 'err'); return; }
 
-    const d = data.data;
-    salidaPendiente = null;
+      document.getElementById('scan-icon').innerHTML = '<span class="spinner"></span>';
+      document.getElementById('scan-text').textContent = 'Analizando...';
+      document.getElementById('btn-scan').disabled = true;
 
-    document.getElementById('modal-cobro-val').textContent =
-      `$${(d.valor_cobrado || 0).toLocaleString('es-CO')}`;
+      try {
+        const form = new FormData();
+        form.append('imagen', imagenFile);
 
-    document.getElementById('modal-detail').innerHTML = `
+        const resp = await fetch(`${API}/api/ocr/placa`, { method: 'POST', body: form });
+        if (!resp.ok) throw new Error(await resp.text());
+        const data = await resp.json();
+
+        if (data.error) throw new Error(data.error);
+
+        ocrPlaca = data.placa;
+        ocrTipo = data.tipo_vehiculo || 'carro';
+
+        document.getElementById('ocr-placa').textContent = ocrPlaca || '—No detectada—';
+        setTipo(ocrTipo);
+
+        const conf = Math.round((data.confianza_ocr || 0) * 100);
+        document.getElementById('conf-bar').style.width = `${conf}%`;
+        document.getElementById('conf-val').textContent = `${conf}%`;
+
+        document.getElementById('ocr-result').style.display = 'block';
+
+        if (ocrPlaca) {
+          toast(`✅ Placa detectada: ${ocrPlaca} (${ocrTipo})`, 'ok');
+        } else {
+          toast('⚠️ No se detectó placa válida — verifica o ingresa manual', 'info');
+        }
+      } catch (err) {
+        toast(`Error OCR: ${err.message}`, 'err');
+        console.error(err);
+      } finally {
+        document.getElementById('scan-icon').textContent = '🔍';
+        document.getElementById('scan-text').textContent = 'Analizar con YOLOv8 + OCR';
+        document.getElementById('btn-scan').disabled = false;
+      }
+    }
+
+    function setTipo(tipo) {
+      ocrTipo = tipo;
+      document.getElementById('badge-moto').className = 'tipo-badge' + (tipo === 'moto' ? ' active-moto' : '');
+      document.getElementById('badge-carro').className = 'tipo-badge' + (tipo === 'carro' ? ' active-carro' : '');
+    }
+
+    function editarPlaca() {
+      const nueva = prompt('Ingresa la placa correcta (sin guión):', ocrPlaca || '');
+      if (nueva) {
+        ocrPlaca = nueva.toUpperCase().replace(/[\s\-]/g, '');
+        document.getElementById('ocr-placa').textContent = ocrPlaca;
+        toast(`Placa actualizada: ${ocrPlaca}`, 'info');
+      }
+    }
+
+    // ── Registro entrada ──
+    async function registrarEntrada(placa = ocrPlaca, tipo = ocrTipo) {
+      if (!placa) { toast('No hay placa para registrar', 'err'); return; }
+
+      try {
+        const resp = await fetch(`${API}/api/vehiculo/entrada`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ placa, tipo }),
+        });
+        const data = await resp.json();
+        if (!resp.ok) throw new Error(data.detail || JSON.stringify(data));
+
+        toast(data.mensaje, 'ok');
+        clearPreview();
+        document.getElementById('ocr-result').style.display = 'none';
+        await Promise.all([cargarActivos(), cargarEstadisticas()]);
+      } catch (err) {
+        toast(`❌ ${err.message}`, 'err');
+      }
+    }
+
+    async function registrarManual() {
+      const placa = document.getElementById('manual-placa').value.trim().toUpperCase();
+      const tipo = document.getElementById('manual-tipo').value;
+      if (!placa) { toast('Ingresa una placa', 'err'); return; }
+      await registrarEntrada(placa, tipo);
+      document.getElementById('manual-placa').value = '';
+    }
+
+    // ── Registro salida ──
+    async function iniciarSalida(placa) {
+      try {
+        const resp = await fetch(`${API}/api/vehiculo/salida`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ placa }),
+        });
+        const data = await resp.json();
+        if (!resp.ok) throw new Error(data.detail || JSON.stringify(data));
+
+        const d = data.data;
+        salidaPendiente = null;
+
+        document.getElementById('modal-cobro-val').textContent =
+          `$${(d.valor_cobrado || 0).toLocaleString('es-CO')}`;
+
+        document.getElementById('modal-detail').innerHTML = `
       <div class="modal-row"><span class="modal-row-key">Placa</span><span class="modal-row-val">${d.placa}</span></div>
       <div class="modal-row"><span class="modal-row-key">Tipo</span><span class="modal-row-val">${d.nombre_tipo}</span></div>
       <div class="modal-row"><span class="modal-row-key">Entrada</span><span class="modal-row-val">${formatHora(d.entrada)}</span></div>
@@ -1301,46 +1405,46 @@ async function iniciarSalida(placa) {
       <div class="modal-row"><span class="modal-row-key">Detalle</span><span class="modal-row-val">${d.detalle_cobro}</span></div>
     `;
 
-    document.getElementById('modal-cobro').classList.add('open');
-    toast(data.mensaje, 'ok');
-    await Promise.all([cargarActivos(), cargarEstadisticas(), cargarHistorial()]);
-  } catch (err) {
-    toast(`❌ ${err.message}`, 'err');
-  }
-}
-
-async function registrarSalidaManual() {
-  const placa = document.getElementById('manual-placa').value.trim().toUpperCase();
-  if (!placa) { toast('Ingresa la placa para registrar salida', 'err'); return; }
-  await iniciarSalida(placa);
-  document.getElementById('manual-placa').value = '';
-}
-
-function confirmarSalida() {
-  cerrarModal();
-  toast('✅ Cobro confirmado', 'ok');
-}
-
-function cerrarModal() {
-  document.getElementById('modal-cobro').classList.remove('open');
-}
-
-// ── Cargar datos ──
-async function cargarActivos() {
-  try {
-    const resp = await fetch(`${API}/api/vehiculos/activos`);
-    const data = await resp.json();
-    const lista = document.getElementById('activos-list');
-    const badge = document.getElementById('badge-activos');
-
-    badge.textContent = data.total;
-
-    if (!data.vehiculos.length) {
-      lista.innerHTML = `<div class="empty-state"><div class="empty-icon">🏁</div><div>Sin vehículos activos</div></div>`;
-      return;
+        document.getElementById('modal-cobro').classList.add('open');
+        toast(data.mensaje, 'ok');
+        await Promise.all([cargarActivos(), cargarEstadisticas(), cargarHistorial()]);
+      } catch (err) {
+        toast(`❌ ${err.message}`, 'err');
+      }
     }
 
-    lista.innerHTML = data.vehiculos.map(v => `
+    async function registrarSalidaManual() {
+      const placa = document.getElementById('manual-placa').value.trim().toUpperCase();
+      if (!placa) { toast('Ingresa la placa para registrar salida', 'err'); return; }
+      await iniciarSalida(placa);
+      document.getElementById('manual-placa').value = '';
+    }
+
+    function confirmarSalida() {
+      cerrarModal();
+      toast('✅ Cobro confirmado', 'ok');
+    }
+
+    function cerrarModal() {
+      document.getElementById('modal-cobro').classList.remove('open');
+    }
+
+    // ── Cargar datos ──
+    async function cargarActivos() {
+      try {
+        const resp = await fetch(`${API}/api/vehiculos/activos`);
+        const data = await resp.json();
+        const lista = document.getElementById('activos-list');
+        const badge = document.getElementById('badge-activos');
+
+        badge.textContent = data.total;
+
+        if (!data.vehiculos.length) {
+          lista.innerHTML = `<div class="empty-state"><div class="empty-icon">🏁</div><div>Sin vehículos activos</div></div>`;
+          return;
+        }
+
+        lista.innerHTML = data.vehiculos.map(v => `
       <div class="vehiculo-card">
         <div class="vc-info">
           <div class="vc-placa">${v.placa}</div>
@@ -1356,54 +1460,54 @@ async function cargarActivos() {
         </div>
       </div>
     `).join('');
-  } catch (err) {
-    console.error('Error cargando activos:', err);
-  }
-}
-
-async function cargarEstadisticas() {
-  try {
-    const resp = await fetch(`${API}/api/estadisticas`);
-    const d = await resp.json();
-
-    document.getElementById('stat-activos').textContent = d.activos_ahora;
-    document.getElementById('stat-ingresos').textContent = `$${(d.ingresos_hoy).toLocaleString('es-CO')}`;
-    document.getElementById('stat-motos').textContent = d.motos_hoy;
-    document.getElementById('stat-carros').textContent = d.carros_hoy;
-
-    const total = d.vehiculos_hoy;
-    document.getElementById('tk-total').textContent = total;
-    const prom = total > 0 ? Math.round(d.ingresos_hoy / total) : 0;
-    document.getElementById('tk-prom').textContent = `$${prom.toLocaleString('es-CO')}`;
-    document.getElementById('tk-cap').textContent = d.activos_ahora;
-
-    document.getElementById('h-activos').textContent = d.activos_ahora;
-    document.getElementById('h-ingresos').textContent = `$${(d.ingresos_hoy).toLocaleString('es-CO')}`;
-
-    if (d.tarifas_vigentes) {
-      const t = d.tarifas_vigentes;
-      document.getElementById('tarifa-carro-hora').textContent = `$${t.carro.hora.toLocaleString('es-CO')}`;
-      document.getElementById('tarifa-carro-frac').textContent = `$${t.carro.fraccion.toLocaleString('es-CO')}`;
-      document.getElementById('tarifa-moto-hora').textContent = `$${t.moto.hora.toLocaleString('es-CO')}`;
-      document.getElementById('tarifa-moto-frac').textContent = `$${t.moto.fraccion.toLocaleString('es-CO')}`;
-    }
-  } catch (err) {
-    console.error('Error cargando estadísticas:', err);
-  }
-}
-
-async function cargarHistorial() {
-  try {
-    const resp = await fetch(`${API}/api/historial?limite=15`);
-    const data = await resp.json();
-    const el = document.getElementById('historial-list');
-
-    if (!data.registros.length) {
-      el.innerHTML = '<div class="empty-state"><div>Sin registros aún</div></div>';
-      return;
+      } catch (err) {
+        console.error('Error cargando activos:', err);
+      }
     }
 
-    el.innerHTML = data.registros.map(r => `
+    async function cargarEstadisticas() {
+      try {
+        const resp = await fetch(`${API}/api/estadisticas`);
+        const d = await resp.json();
+
+        document.getElementById('stat-activos').textContent = d.activos_ahora;
+        document.getElementById('stat-ingresos').textContent = `$${(d.ingresos_hoy).toLocaleString('es-CO')}`;
+        document.getElementById('stat-motos').textContent = d.motos_hoy;
+        document.getElementById('stat-carros').textContent = d.carros_hoy;
+
+        const total = d.vehiculos_hoy;
+        document.getElementById('tk-total').textContent = total;
+        const prom = total > 0 ? Math.round(d.ingresos_hoy / total) : 0;
+        document.getElementById('tk-prom').textContent = `$${prom.toLocaleString('es-CO')}`;
+        document.getElementById('tk-cap').textContent = d.activos_ahora;
+
+        document.getElementById('h-activos').textContent = d.activos_ahora;
+        document.getElementById('h-ingresos').textContent = `$${(d.ingresos_hoy).toLocaleString('es-CO')}`;
+
+        if (d.tarifas_vigentes) {
+          const t = d.tarifas_vigentes;
+          document.getElementById('tarifa-carro-hora').textContent = `$${t.carro.hora.toLocaleString('es-CO')}`;
+          document.getElementById('tarifa-carro-frac').textContent = `$${t.carro.fraccion.toLocaleString('es-CO')}`;
+          document.getElementById('tarifa-moto-hora').textContent = `$${t.moto.hora.toLocaleString('es-CO')}`;
+          document.getElementById('tarifa-moto-frac').textContent = `$${t.moto.fraccion.toLocaleString('es-CO')}`;
+        }
+      } catch (err) {
+        console.error('Error cargando estadísticas:', err);
+      }
+    }
+
+    async function cargarHistorial() {
+      try {
+        const resp = await fetch(`${API}/api/historial?limite=15`);
+        const data = await resp.json();
+        const el = document.getElementById('historial-list');
+
+        if (!data.registros.length) {
+          el.innerHTML = '<div class="empty-state"><div>Sin registros aún</div></div>';
+          return;
+        }
+
+        el.innerHTML = data.registros.map(r => `
       <div class="historial-item">
         <div class="hi-top">
           <span class="hi-placa">${r.placa}</span>
@@ -1415,96 +1519,133 @@ async function cargarHistorial() {
         </div>
       </div>
     `).join('');
-  } catch (err) {
-    console.error('Error cargando historial:', err);
-  }
-}
-
-// ── Helpers ──
-function formatHora(iso) {
-  if (!iso) return '—';
-  return new Date(iso).toLocaleTimeString('es-CO', { hour: '2-digit', minute: '2-digit' });
-}
-
-// ── Sistema de Reservas ──
-async function cargarReservas() {
-  try {
-    const resp = await fetch(`${API}/api/reservas`);
-    const data = await resp.json();
-    const lista = document.getElementById('reservas-list');
-
-    if (!data.reservas.length) {
-      lista.innerHTML = `<div class="empty-state">Sin reservas pendientes</div>`;
-      return;
+      } catch (err) {
+        console.error('Error cargando historial:', err);
+      }
     }
 
-    lista.innerHTML = data.reservas.map(r => `
-      <div class="vehiculo-card" style="border-left: 3px solid var(--blue);">
-        <div class="vc-info">
-          <div class="vc-placa">${r.placa}</div>
-          <div class="vc-tipo">${r.nombre_tipo} · Llegada esperada: ${r.hora_esperada}</div>
-        </div>
-        <button class="btn-sm btn-ghost" onclick="confirmarLlegadaReserva('${r.placa}')" style="color: var(--green); border-color: var(--green);">
-          ✔️ Registrar Llegada
-        </button>
-      </div>
-    `).join('');
-  } catch (err) {
-    console.error('Error cargando reservas:', err);
-  }
-}
+    // ── Helpers ──
+    function formatHora(iso) {
+      if (!iso) return '—';
+      return new Date(iso).toLocaleTimeString('es-CO', { hour: '2-digit', minute: '2-digit' });
+    }
 
-async function crearReserva() {
-  const placa = document.getElementById('res-placa').value.trim();
-  const tipo = document.getElementById('res-tipo').value;
-  const hora = document.getElementById('res-hora').value;
+    // ── Sistema de Reservas ──
+    async function cargarReservas() {
+      try {
+        const resp = await fetch(`${API}/api/reservas`);
+        const data = await resp.json();
+        const lista = document.getElementById('reservas-list');
 
-  if (!placa || !hora) { toast('Completa placa y hora', 'err'); return; }
+        if (!data.reservas.length) {
+          lista.innerHTML = `<div class="empty-state">Sin reservas pendientes</div>`;
+          return;
+        }
 
-  try {
-    const resp = await fetch(`${API}/api/reservas`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ placa, tipo, hora_esperada: hora })
-    });
-    const data = await resp.json();
-    if (!resp.ok) throw new Error(data.detail || 'Error');
-    
-    toast(data.mensaje, 'ok');
-    document.getElementById('res-placa').value = '';
-    cargarReservas();
-  } catch (err) {
-    toast(`❌ ${err.message}`, 'err');
-  }
-}
+        lista.innerHTML = data.reservas.map(r => {
+          const fechaHora = r.hora_esperada ? new Date(r.hora_esperada) : null;
+          const horaStr = fechaHora && !isNaN(fechaHora)
+            ? fechaHora.toLocaleString('es-CO', { day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit' })
+            : r.hora_esperada;
+          return `
+            <div class="vehiculo-card" style="border-left: 3px solid var(--blue);">
+              <div class="vc-info">
+                <div class="vc-placa">${r.placa}</div>
+                <div class="vc-tipo">${r.nombre_tipo}</div>
+                <div class="vc-tiempo">🕐 Llegada esperada: ${horaStr}</div>
+              </div>
+              <div style="display:flex; gap:6px; flex-direction:column; align-items:flex-end;">
+                <button class="btn-sm" onclick="confirmarLlegadaReserva('${r.placa}')"
+                  style="background:rgba(34,214,150,0.15); color:var(--green); border:1px solid var(--green);">
+                  ✔️ Llegada
+                </button>
+                <button class="btn-sm btn-salida" onclick="cancelarReserva('${r.placa}')">
+                  ✕ Cancelar
+                </button>
+              </div>
+            </div>`;
+        }).join('');
+      } catch (err) {
+        console.error('Error cargando reservas:', err);
+      }
+    }
 
-async function confirmarLlegadaReserva(placa) {
-  try {
-    const resp = await fetch(`${API}/api/reservas/${placa}/llegada`, { method: 'POST' });
-    const data = await resp.json();
-    if (!resp.ok) throw new Error(data.detail || 'Error');
-    
-    toast(`Llegada confirmada: ${placa}`, 'ok');
-    await Promise.all([cargarActivos(), cargarReservas()]);
-  } catch (err) {
-    toast(`❌ ${err.message}`, 'err');
-  }
-}
+    // Para crear con fecha
+    async function crearReserva() {
+      const placa = document.getElementById('res-placa').value.trim().toUpperCase();
+      const tipo = document.getElementById('res-tipo').value;
+      const fecha = document.getElementById('res-fecha').value;
+      const hora = document.getElementById('res-hora').value;
 
-// ── Init ──
-async function init() {
-  // Se agregó cargarReservas() al inicio
-  await Promise.all([cargarActivos(), cargarEstadisticas(), cargarHistorial(), cargarReservas()]);
-  
-  // Auto-refresh cada 30s incluyendo reservas
-  setInterval(async () => {
-    await Promise.all([cargarActivos(), cargarEstadisticas(), cargarReservas()]);
-  }, 30000);
-  
-  setInterval(cargarHistorial, 60000);
-}
+      if (!placa || !fecha || !hora) { toast('Completa todos los campos', 'err'); return; }
 
-init();
-</script>
+      // Validar formato de placa mínimamente
+      if (placa.length < 5 || placa.length > 6) { toast('Placa inválida (5-6 caracteres)', 'err'); return; }
+
+      // Combinar fecha y hora en un string ISO legible
+      const hora_esperada = `${fecha}T${hora}:00`;
+
+      try {
+        const resp = await fetch(`${API}/api/reservas`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ placa, tipo, hora_esperada }),
+        });
+        const data = await resp.json();
+        if (!resp.ok) throw new Error(data.detail || JSON.stringify(data));
+
+        toast(data.mensaje, 'ok');
+        document.getElementById('res-placa').value = '';
+        document.getElementById('res-hora').value = '';
+        document.getElementById('res-fecha').value = '';
+        await cargarReservas();
+      } catch (err) {
+        toast(`❌ ${err.message}`, 'err');
+      }
+    }
+
+    // Nueva función de cancelación
+    async function cancelarReserva(placa) {
+      if (!confirm(`¿Estás seguro de cancelar la reserva de ${placa}?`)) return;
+
+      try {
+        const resp = await fetch(`${API}/api/reservas/${placa}`, { method: 'DELETE' });
+        if (!resp.ok) throw new Error('Error al cancelar');
+        toast(`Reserva cancelada`, 'ok');
+        cargarReservas();
+      } catch (err) {
+        toast('Error: ' + err.message, 'err');
+      }
+    }
+
+    async function confirmarLlegadaReserva(placa) {
+      try {
+        const resp = await fetch(`${API}/api/reservas/${placa}/llegada`, { method: 'POST' });
+        const data = await resp.json();
+        if (!resp.ok) throw new Error(data.detail || 'Error');
+
+        toast(`Llegada confirmada: ${placa}`, 'ok');
+        await Promise.all([cargarActivos(), cargarReservas()]);
+      } catch (err) {
+        toast(`❌ ${err.message}`, 'err');
+      }
+    }
+
+    // ── Init ──
+    async function init() {
+      // Se agregó cargarReservas() al inicio
+      await Promise.all([cargarActivos(), cargarEstadisticas(), cargarHistorial(), cargarReservas()]);
+
+      // Auto-refresh cada 30s incluyendo reservas
+      setInterval(async () => {
+        await Promise.all([cargarActivos(), cargarEstadisticas(), cargarReservas()]);
+      }, 30000);
+
+      setInterval(cargarHistorial, 60000);
+    }
+
+    init();
+  </script>
 </body>
+
 </html>

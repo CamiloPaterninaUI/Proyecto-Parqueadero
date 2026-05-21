@@ -21,6 +21,17 @@
       "duracion_minutos": null,
       "valor_cobrado": null,
       "estado": "activo"
+    },
+    "ZBL87A": {
+      "id": "F3A9B1FD",
+      "placa": "ZBL87A",
+      "tipo": "moto",
+      "nombre_tipo": "Motocicleta",
+      "entrada": "2026-05-21T01:32:52.764292",
+      "salida": null,
+      "duracion_minutos": null,
+      "valor_cobrado": null,
+      "estado": "activo"
     }
   },
   "historial": [

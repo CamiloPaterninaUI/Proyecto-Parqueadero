@@ -1,0 +1,51 @@
+{
+  "vehiculos_activos": {
+    "ZBL287": {
+      "id": "F1AA3B64",
+      "placa": "ZBL287",
+      "tipo": "carro",
+      "nombre_tipo": "Automóvil",
+      "entrada": "2026-05-21T00:47:21.718983",
+      "salida": null,
+      "duracion_minutos": null,
+      "valor_cobrado": null,
+      "estado": "activo"
+    },
+    "MOX292": {
+      "id": "CFA419E3",
+      "placa": "MOX292",
+      "tipo": "carro",
+      "nombre_tipo": "Automóvil",
+      "entrada": "2026-05-21T00:54:24.639457",
+      "salida": null,
+      "duracion_minutos": null,
+      "valor_cobrado": null,
+      "estado": "activo"
+    }
+  },
+  "historial": [
+    {
+      "id": "55E45C23",
+      "placa": "BTT590",
+      "tipo": "carro",
+      "nombre_tipo": "Automóvil",
+      "entrada": "2026-05-21T00:47:03.815510",
+      "salida": "2026-05-21T00:54:51.080385",
+      "duracion_minutos": 7,
+      "valor_cobrado": 1500,
+      "estado": "pagado",
+      "detalle_cobro": "Fracción (≤30 min)"
+    }
+  ],
+  "reservas": [
+    {
+      "id": "6E04204F",
+      "placa": "ASD567",
+      "tipo": "carro",
+      "nombre_tipo": "Automóvil",
+      "hora_esperada": "2026-05-21T01:00:00",
+      "estado": "pendiente",
+      "creado_en": "2026-05-21T00:48:02.311920"
+    }
+  ]
+}

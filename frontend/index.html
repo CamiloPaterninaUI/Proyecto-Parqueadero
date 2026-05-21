@@ -641,6 +641,18 @@
     /* ── Divider ── */
     .divider { height: 1px; background: var(--glass-border); margin: 0.25rem 0; }
 
+    /* ── Ticket de entrada (oculto en pantalla, visible al imprimir) ── */
+    #ticket-entrada-frame { display: none; }
+
+    @media print {
+      body > *:not(#ticket-print-wrapper) { display: none !important; }
+      #ticket-print-wrapper {
+        display: block !important;
+        position: fixed; inset: 0;
+        background: #fff; z-index: 9999;
+      }
+    }
+
     /* ── Responsive ── */
     @media (max-width: 960px) {
       .layout { grid-template-columns: 1fr; }
@@ -915,18 +927,34 @@
     </aside>
   </div>
 
-  <!-- Modal cobro -->
+  <!-- Modal tiquete de entrada -->
+  <div class="modal-overlay" id="modal-tiquete-entrada">
+    <div class="modal" style="width:360px;max-width:95vw;">
+      <div class="modal-title">🎫 Tiquete de entrada</div>
+      <div id="tiquete-entrada-preview" style="background:#fff;border-radius:var(--r-sm);padding:0;margin-bottom:1.25rem;overflow:hidden;"></div>
+      <div class="modal-btn-row">
+        <button class="btn btn-glass" onclick="cerrarModalTiqueteEntrada()">Cerrar</button>
+        <button class="btn btn-gold" onclick="imprimirTiqueteEntrada()">🖨️ Imprimir</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal tiquete de salida (cobro) -->
   <div class="modal-overlay" id="modal-cobro">
     <div class="modal">
       <div class="modal-title">💰 Cobro de salida</div>
       <div class="modal-cobro" id="modal-cobro-val">$0</div>
       <div class="modal-detail" id="modal-detail"></div>
       <div class="modal-btn-row">
-        <button class="btn btn-glass" onclick="cerrarModal()">Cancelar</button>
+        <button class="btn btn-glass" onclick="cerrarModal()">Cerrar</button>
+        <button class="btn btn-glass" onclick="imprimirTiqueteSalida()" style="border-color:rgba(212,175,95,0.4);color:var(--gold);">🖨️ Imprimir</button>
         <button class="btn btn-gold" onclick="confirmarSalida()">✅ Confirmar cobro</button>
       </div>
     </div>
   </div>
+
+  <!-- Wrapper oculto usado solo al imprimir -->
+  <div id="ticket-print-wrapper" style="display:none;"></div>
 
   <div id="toast"></div>
 
@@ -1160,6 +1188,8 @@
         clearPreview();
         document.getElementById('ocr-result').style.display = 'none';
         await Promise.all([cargarActivos(), cargarEstadisticas()]);
+        // Mostrar tiquete de entrada automáticamente
+        if (data.data) mostrarTiqueteEntrada(data.data);
       } catch (err) {
         toast(`❌ ${err.message}`, 'err');
       }
@@ -1185,6 +1215,7 @@
         if (!resp.ok) throw new Error(data.detail || JSON.stringify(data));
         const d = data.data;
         salidaPendiente = null;
+        datosTiqueteSalida = d;
         document.getElementById('modal-cobro-val').textContent = `$${(d.valor_cobrado || 0).toLocaleString('es-CO')}`;
         document.getElementById('modal-detail').innerHTML = `
           <div class="modal-row"><span class="modal-row-key">Placa</span><span class="modal-row-val">${d.placa}</span></div>
@@ -1208,8 +1239,116 @@
       document.getElementById('manual-placa').value = '';
     }
 
-    function confirmarSalida() { cerrarModal(); toast('✅ Cobro confirmado', 'ok'); }
-    function cerrarModal() { document.getElementById('modal-cobro').classList.remove('open'); }
+    // ── Tiquete helpers ──
+    let datosTiqueteSalida = null;
+
+    function htmlTiqueteEntrada(d) {
+      const ahora = new Date(d.entrada);
+      const fechaStr = ahora.toLocaleDateString('es-CO', { day: '2-digit', month: '2-digit', year: 'numeric' });
+      const horaStr  = ahora.toLocaleTimeString('es-CO', { hour: '2-digit', minute: '2-digit' });
+      return `
+        <div style="font-family:'Courier New',monospace;background:#fff;color:#111;padding:20px 18px;font-size:12px;line-height:1.6;width:100%;">
+          <div style="text-align:center;border-bottom:2px dashed #ccc;padding-bottom:10px;margin-bottom:10px;">
+            <div style="font-size:18px;font-weight:bold;letter-spacing:1px;">PARQUEADERO</div>
+            <div style="font-size:15px;font-weight:bold;">UNIBAGUÉ</div>
+            <div style="font-size:10px;color:#555;margin-top:2px;">Sistema de control vehicular</div>
+          </div>
+          <div style="text-align:center;margin-bottom:10px;">
+            <div style="font-size:10px;color:#777;text-transform:uppercase;letter-spacing:1px;">— TIQUETE DE ENTRADA —</div>
+          </div>
+          <table style="width:100%;border-collapse:collapse;">
+            <tr><td style="color:#555;padding:2px 0;">Placa</td><td style="text-align:right;font-weight:bold;font-size:15px;letter-spacing:2px;">${d.placa}</td></tr>
+            <tr><td style="color:#555;padding:2px 0;">Vehículo</td><td style="text-align:right;">${d.nombre_tipo}</td></tr>
+            <tr><td style="color:#555;padding:2px 0;">Fecha entrada</td><td style="text-align:right;">${fechaStr}</td></tr>
+            <tr><td style="color:#555;padding:2px 0;">Hora entrada</td><td style="text-align:right;font-weight:bold;">${horaStr}</td></tr>
+            <tr><td style="color:#555;padding:2px 0;">N° Tiquete</td><td style="text-align:right;font-family:monospace;">#${d.id || '—'}</td></tr>
+          </table>
+          <div style="border-top:2px dashed #ccc;margin-top:12px;padding-top:10px;">
+            <table style="width:100%;border-collapse:collapse;font-size:11px;">
+              <tr><td style="color:#555;">Tarifa hora</td><td style="text-align:right;">$${(d.tarifa_hora||0).toLocaleString('es-CO')}</td></tr>
+              <tr><td style="color:#555;">Fracción ≤30min</td><td style="text-align:right;">$${(d.tarifa_fraccion||0).toLocaleString('es-CO')}</td></tr>
+            </table>
+          </div>
+          <div style="border-top:2px dashed #ccc;margin-top:12px;padding-top:10px;text-align:center;font-size:10px;color:#777;">
+            Conserve este tiquete para su salida<br/>
+            Al retirar el vehículo presente el tiquete<br/>
+            <span style="font-size:9px;">— Gracias por su visita —</span>
+          </div>
+        </div>`;
+    }
+
+    function htmlTiqueteSalida(d) {
+      const entradaDt = new Date(d.entrada);
+      const salidaDt  = new Date(d.salida);
+      const fechaStr  = salidaDt.toLocaleDateString('es-CO', { day: '2-digit', month: '2-digit', year: 'numeric' });
+      return `
+        <div style="font-family:'Courier New',monospace;background:#fff;color:#111;padding:20px 18px;font-size:12px;line-height:1.6;width:100%;">
+          <div style="text-align:center;border-bottom:2px dashed #ccc;padding-bottom:10px;margin-bottom:10px;">
+            <div style="font-size:18px;font-weight:bold;letter-spacing:1px;">PARQUEADERO</div>
+            <div style="font-size:15px;font-weight:bold;">UNIBAGUÉ</div>
+            <div style="font-size:10px;color:#555;margin-top:2px;">Sistema de control vehicular</div>
+          </div>
+          <div style="text-align:center;margin-bottom:10px;">
+            <div style="font-size:10px;color:#777;text-transform:uppercase;letter-spacing:1px;">— TIQUETE DE SALIDA / COBRO —</div>
+          </div>
+          <table style="width:100%;border-collapse:collapse;">
+            <tr><td style="color:#555;padding:2px 0;">Placa</td><td style="text-align:right;font-weight:bold;font-size:15px;letter-spacing:2px;">${d.placa}</td></tr>
+            <tr><td style="color:#555;padding:2px 0;">Vehículo</td><td style="text-align:right;">${d.nombre_tipo}</td></tr>
+            <tr><td style="color:#555;padding:2px 0;">Fecha</td><td style="text-align:right;">${fechaStr}</td></tr>
+            <tr><td style="color:#555;padding:2px 0;">Hora entrada</td><td style="text-align:right;">${entradaDt.toLocaleTimeString('es-CO',{hour:'2-digit',minute:'2-digit'})}</td></tr>
+            <tr><td style="color:#555;padding:2px 0;">Hora salida</td><td style="text-align:right;font-weight:bold;">${salidaDt.toLocaleTimeString('es-CO',{hour:'2-digit',minute:'2-digit'})}</td></tr>
+            <tr><td style="color:#555;padding:2px 0;">Duración</td><td style="text-align:right;">${d.duracion_str || '—'}</td></tr>
+            <tr><td style="color:#555;padding:2px 0;">Detalle</td><td style="text-align:right;">${d.detalle_cobro || '—'}</td></tr>
+          </table>
+          <div style="border-top:2px dashed #ccc;margin-top:12px;padding-top:12px;text-align:center;">
+            <div style="font-size:11px;color:#555;text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;">Total a cobrar</div>
+            <div style="font-size:28px;font-weight:bold;">$${(d.valor_cobrado||0).toLocaleString('es-CO')}</div>
+            <div style="font-size:10px;color:#777;margin-top:2px;">COP</div>
+          </div>
+          <div style="border-top:2px dashed #ccc;margin-top:12px;padding-top:10px;text-align:center;font-size:10px;color:#777;">
+            N° Tiquete: #${d.id || '—'}<br/>
+            <span style="font-size:9px;">— Gracias por su visita —</span>
+          </div>
+        </div>`;
+    }
+
+    function imprimirHTML(html) {
+      const wrapper = document.getElementById('ticket-print-wrapper');
+      wrapper.innerHTML = html;
+      window.print();
+      setTimeout(() => { wrapper.innerHTML = ''; }, 1000);
+    }
+
+    // Tiquete de entrada
+    function mostrarTiqueteEntrada(data) {
+      const preview = document.getElementById('tiquete-entrada-preview');
+      preview.innerHTML = htmlTiqueteEntrada(data);
+      document.getElementById('modal-tiquete-entrada').classList.add('open');
+    }
+
+    function cerrarModalTiqueteEntrada() {
+      document.getElementById('modal-tiquete-entrada').classList.remove('open');
+    }
+
+    function imprimirTiqueteEntrada() {
+      const preview = document.getElementById('tiquete-entrada-preview');
+      imprimirHTML(preview.innerHTML);
+    }
+
+    // Tiquete de salida
+    function imprimirTiqueteSalida() {
+      if (!datosTiqueteSalida) return;
+      imprimirHTML(htmlTiqueteSalida(datosTiqueteSalida));
+    }
+
+    function confirmarSalida() {
+      cerrarModal();
+      toast('✅ Cobro confirmado', 'ok');
+    }
+
+    function cerrarModal() {
+      document.getElementById('modal-cobro').classList.remove('open');
+    }
 
     // ── Cargar activos ──
     async function cargarActivos() {

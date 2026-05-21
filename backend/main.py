@@ -100,13 +100,23 @@ CONFUSION_EN_NUMEROS = {
 # ──────────────────────────────────────────────
 print("🚀 Cargando modelos...")
 
-model_path = MODELS_DIR / "best.pt"
-if model_path.exists():
-    yolo_model = YOLO(str(model_path))
-    print(f"✅ YOLOv8 cargado desde {model_path}")
-else:
-    yolo_model = YOLO("yolov8n.pt")
-    print("⚠️  Usando YOLOv8 base (coloca tu best.pt en /models/)")
+# ── Carga ensemble de modelos ──────────────────
+yolo_models = []
+
+# Agrega aquí los nombres de tus archivos .pt
+MODEL_FILES = ["best.pt", "best1.pt"]  # ← Cambia a los nombres reales de tus archivos
+
+for fname in MODEL_FILES:
+    path = MODELS_DIR / fname
+    if path.exists():
+        yolo_models.append(YOLO(str(path)))
+        print(f"✅ Modelo cargado: {path}")
+    else:
+        print(f"⚠️  No se encontró: {path}")
+
+if not yolo_models:
+    print("⚠️  Ningún modelo encontrado, usando YOLOv8 base")
+    yolo_models = [YOLO("yolov8n.pt")]
 
 ocr_reader = easyocr.Reader(["en"], gpu=False)
 print("✅ EasyOCR listo")
@@ -234,33 +244,41 @@ def buscar_placa_en_textos(textos: list[str]) -> tuple[str | None, str | None, f
     placa, tipo, conf = candidatos_con_conf[0]
     return placa, tipo, conf
 
-def detectar_tipo_vehiculo(results, img_shape=None) -> str:
-    """
-    Determina si el vehículo es moto o carro basado en las detecciones de YOLO.
-    1. Primero busca clases explícitas (moto/carro) en los nombres del modelo.
-    2. Si el modelo solo detecta placas, usa el aspect ratio del recorte como señal.
-       - Placa carro colombiana: ~33×13 cm → aspect ratio ≈ 2.5
-       - Placa moto colombiana:  ~20×15 cm → aspect ratio ≈ 1.3
-    3. Fallback: 'carro'
-    """
-    if not results or not results[0].boxes:
-        return "carro"
-
+def detectar_tipo_vehiculo(all_results: list, img_shape=None) -> str:
+    """Igual que antes pero acepta results de múltiples modelos."""
     palabras_moto  = {"moto", "motorcycle", "bike", "scooter", "motocicleta"}
     palabras_carro = {"car", "carro", "auto", "truck", "bus", "van", "suv", "automovil", "automobile"}
-    nombres = results[0].names
 
-    # Paso 1: buscar tipo de vehículo explícito en las clases
     tiene_carro = False
-    for box in results[0].boxes:
-        nombre = nombres.get(int(box.cls[0]), "").lower()
-        if any(kw in nombre for kw in palabras_moto):
-            return "moto"
-        if any(kw in nombre for kw in palabras_carro):
-            tiene_carro = True
+    for results in all_results:
+        if not results or not results[0].boxes:
+            continue
+        nombres = results[0].names
+        for box in results[0].boxes:
+            nombre = nombres.get(int(box.cls[0]), "").lower()
+            if any(kw in nombre for kw in palabras_moto):
+                return "moto"
+            if any(kw in nombre for kw in palabras_carro):
+                tiene_carro = True
 
     if tiene_carro:
         return "carro"
+
+    # Aspect ratio: usar el primer resultado con detección de placa
+    for results in all_results:
+        if not results or not results[0].boxes:
+            continue
+        nombres = results[0].names
+        for box in results[0].boxes:
+            nombre = nombres.get(int(box.cls[0]), "").lower()
+            if any(p in nombre for p in ["placa", "plate", "license", "matricula"]):
+                x1, y1, x2, y2 = map(int, box.xyxy[0])
+                ancho = max(1, x2 - x1)
+                alto  = max(1, y2 - y1)
+                ratio = ancho / alto
+                return "moto" if ratio < 1.8 else "carro"
+
+    return "carro"
 
     # Paso 2: si solo hay detecciones de "placa", usar aspect ratio del recorte
     # Placa moto ≈ cuadrada (ratio < 1.8), placa carro ≈ rectangular (ratio >= 1.8)
@@ -451,14 +469,19 @@ def detectar_y_leer_placa(imagen_bytes: bytes) -> dict:
 
     h, w = img.shape[:2]
 
-    # ── 1. Detección YOLO ──────────────────────────────────────────────────────
-    results = yolo_model(img, conf=0.25, verbose=False)
-    tipo_vehiculo = detectar_tipo_vehiculo(results, img_shape=(h, w))
+    # ── 1. Detección con TODOS los modelos ────────────────────────────────────
+    all_results = [model(img, conf=0.25, verbose=False) for model in yolo_models]
+    tipo_vehiculo = detectar_tipo_vehiculo(all_results, img_shape=(h, w))
 
-    regiones: list[tuple[np.ndarray, float]] = []   # (recorte, conf_yolo)
+    regiones: list[tuple[np.ndarray, float]] = []
     confianza_yolo = 0.0
+    total_detecciones = 0
 
-    if results and results[0].boxes:
+    # Recopilar regiones de TODOS los modelos
+    for results in all_results:
+        if not results or not results[0].boxes:
+            continue
+        total_detecciones += len(results[0].boxes)
         for box in results[0].boxes:
             cls_id       = int(box.cls[0])
             nombre_clase = results[0].names.get(cls_id, "").lower()
@@ -466,8 +489,6 @@ def detectar_y_leer_placa(imagen_bytes: bytes) -> dict:
 
             if any(p in nombre_clase for p in ["placa", "plate", "license", "matricula"]):
                 x1, y1, x2, y2 = map(int, box.xyxy[0])
-
-                # Padding proporcional al tamaño del recorte
                 pad_x = max(8, int((x2 - x1) * 0.05))
                 pad_y = max(4, int((y2 - y1) * 0.08))
                 x1 = max(0, x1 - pad_x);  y1 = max(0, y1 - pad_y)
@@ -478,14 +499,14 @@ def detectar_y_leer_placa(imagen_bytes: bytes) -> dict:
                     regiones.append((recorte, conf_box))
                     confianza_yolo = max(confianza_yolo, conf_box)
 
-    # Ordenar de mayor a menor confianza YOLO para intentar primero los mejores recortes
+    # Ordenar regiones: mayor confianza YOLO primero
     regiones.sort(key=lambda x: x[1], reverse=True)
 
-    # ── 2. Fallback: imagen completa si YOLO no encontró placas ───────────────
+    # ── 2. Fallback si ningún modelo detectó placa ────────────────────────────
     if not regiones:
         regiones.append((img, 0.0))
 
-    # ── 3. OCR sobre cada región ───────────────────────────────────────────────
+    # ── 3. OCR sobre cada región (igual que antes) ────────────────────────────
     placa_detectada = None
     tipo_detectado  = tipo_vehiculo
     confianza_ocr   = 0.0
@@ -498,12 +519,9 @@ def detectar_y_leer_placa(imagen_bytes: bytes) -> dict:
         if placa and conf > confianza_ocr:
             placa_detectada = placa
             confianza_ocr   = conf
-            # El patrón de la placa sabe si es moto (XXX00X) o carro (XXX000);
-            # solo sobreescribimos el tipo si YOLO no tenía una clase explícita de vehículo.
             if tipo_vehiculo == "carro" and tipo_ocr:
                 tipo_detectado = tipo_ocr
 
-        # Con confianza alta ya no hace falta seguir con otras regiones
         if confianza_ocr >= 0.85:
             break
 
@@ -513,7 +531,8 @@ def detectar_y_leer_placa(imagen_bytes: bytes) -> dict:
         "confianza_yolo":    round(confianza_yolo, 3),
         "confianza_ocr":     round(confianza_ocr, 3),
         "texto_crudo_ocr":   list(set(todos_textos_crudos)),
-        "detecciones_yolo":  len(results[0].boxes) if results and results[0].boxes else 0,
+        "detecciones_yolo":  total_detecciones,
+        "modelos_usados":    len(yolo_models),  # ← nuevo campo informativo
     }
 # ──────────────────────────────────────────────
 # FastAPI App
@@ -573,6 +592,8 @@ async def ocr_placa(imagen: UploadFile = File(...)):
     resultado["imagen_guardada"] = nombre_archivo
     return JSONResponse(resultado)
 
+CAPACIDAD_MAXIMA = 100
+
 @app.post("/api/vehiculo/entrada")
 async def registrar_entrada(vehiculo: VehiculoEntrada):
     placa = vehiculo.placa.upper().strip()
@@ -582,6 +603,10 @@ async def registrar_entrada(vehiculo: VehiculoEntrada):
         raise HTTPException(400, f"Tipo inválido. Use: {list(TARIFAS.keys())}")
 
     db = cargar_db()
+
+    # Verificar capacidad máxima
+    if len(db["vehiculos_activos"]) >= CAPACIDAD_MAXIMA:
+        raise HTTPException(409, f"Parqueadero lleno ({CAPACIDAD_MAXIMA}/{CAPACIDAD_MAXIMA}). No se pueden ingresar más vehículos.")
 
     if placa in db["vehiculos_activos"]:
         raise HTTPException(409, f"El vehículo {placa} ya está en el parqueadero")

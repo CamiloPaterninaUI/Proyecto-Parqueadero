@@ -1,45 +1,46 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Parqueadero Unibagué</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link
-    href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=IBM+Plex+Mono:wght@400;500&family=Figtree:wght@300;400;500;600&display=swap"
-    rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@300;400;500&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
   <style>
-    *,
-    *::before,
-    *::after {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --bg: #0d0f14;
-      --surface: #14171f;
-      --surface2: #1c2030;
-      --border: #2a2f42;
-      --border2: #3a4060;
-      --accent: #f0c040;
-      --accent2: #e8a820;
-      --green: #22d696;
-      --green-dim: #0f3d28;
-      --red: #ff5252;
-      --red-dim: #3d0f0f;
-      --blue: #4a9eff;
-      --blue-dim: #0f2040;
-      --text: #e8eaf0;
-      --text2: #8892a8;
-      --text3: #556070;
-      --mono: 'IBM Plex Mono', monospace;
-      --sans: 'Figtree', sans-serif;
-      --display: 'Syne', sans-serif;
-      --radius: 12px;
-      --radius-sm: 8px;
+      --bg: #080c14;
+      --bg2: #0c1220;
+      --glass: rgba(255,255,255,0.04);
+      --glass-hover: rgba(255,255,255,0.07);
+      --glass-border: rgba(255,255,255,0.10);
+      --glass-border-strong: rgba(255,255,255,0.18);
+      --glow-gold: rgba(212,175,95,0.25);
+      --glow-teal: rgba(56,210,180,0.20);
+      --glow-blue: rgba(80,160,255,0.20);
+
+      --gold: #d4af5f;
+      --gold-light: #f0d080;
+      --gold-dim: rgba(212,175,95,0.15);
+      --teal: #38d2b4;
+      --teal-dim: rgba(56,210,180,0.12);
+      --blue: #50a0ff;
+      --blue-dim: rgba(80,160,255,0.12);
+      --red: #ff6b6b;
+      --red-dim: rgba(255,107,107,0.12);
+
+      --text: #e8eef8;
+      --text2: #8896b0;
+      --text3: #4a5570;
+
+      --mono: 'DM Mono', monospace;
+      --sans: 'Plus Jakarta Sans', sans-serif;
+      --display: 'DM Serif Display', serif;
+      --r: 14px;
+      --r-sm: 9px;
+
+      --cap-max: 100;
     }
 
     body {
@@ -49,826 +50,629 @@
       min-height: 100vh;
       display: flex;
       flex-direction: column;
+      overflow-x: hidden;
+    }
+
+    /* ── Ambient background ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 60% 40% at 20% 10%, rgba(212,175,95,0.06) 0%, transparent 70%),
+        radial-gradient(ellipse 50% 50% at 80% 80%, rgba(56,210,180,0.05) 0%, transparent 70%),
+        radial-gradient(ellipse 40% 40% at 60% 30%, rgba(80,160,255,0.04) 0%, transparent 60%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    body > * { position: relative; z-index: 1; }
+
+    /* ── Glass mixin ── */
+    .glass {
+      background: var(--glass);
+      backdrop-filter: blur(18px) saturate(1.4);
+      -webkit-backdrop-filter: blur(18px) saturate(1.4);
+      border: 1px solid var(--glass-border);
     }
 
     /* ── Header ── */
     header {
-      background: var(--surface);
-      border-bottom: 1px solid var(--border);
+      background: rgba(8,12,20,0.85);
+      backdrop-filter: blur(24px) saturate(1.5);
+      -webkit-backdrop-filter: blur(24px) saturate(1.5);
+      border-bottom: 1px solid var(--glass-border);
       padding: 0 2rem;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      height: 64px;
+      height: 68px;
       position: sticky;
       top: 0;
       z-index: 100;
     }
 
-    .logo {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
+    .logo { display: flex; align-items: center; gap: 14px; }
 
     .logo-icon {
-      width: 36px;
-      height: 36px;
-      background: var(--accent);
-      border-radius: var(--radius-sm);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 18px;
+      width: 40px; height: 40px;
+      background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 100%);
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 20px;
+      box-shadow: 0 4px 20px var(--glow-gold);
     }
 
     .logo-text {
       font-family: var(--display);
-      font-size: 1.1rem;
-      font-weight: 700;
-      letter-spacing: -0.02em;
+      font-size: 1.2rem;
+      color: var(--text);
+      letter-spacing: -0.01em;
     }
 
     .logo-sub {
-      font-size: 0.7rem;
-      color: var(--text2);
-      font-weight: 400;
+      font-size: 0.62rem;
+      color: var(--text3);
       font-family: var(--mono);
       text-transform: uppercase;
-      letter-spacing: 0.08em;
+      letter-spacing: 0.10em;
+      margin-top: 1px;
     }
 
-    .header-stats {
-      display: flex;
-      gap: 2rem;
-    }
+    .header-right { display: flex; align-items: center; gap: 2.5rem; }
 
-    .hstat {
-      text-align: right;
-    }
-
+    .hstat { text-align: right; }
     .hstat-val {
       font-family: var(--mono);
-      font-size: 1.1rem;
-      font-weight: 500;
-      color: var(--accent);
+      font-size: 1.05rem;
+      font-weight: 400;
+      color: var(--gold);
+      line-height: 1;
     }
-
     .hstat-label {
-      font-size: 0.65rem;
+      font-size: 0.6rem;
       color: var(--text3);
       text-transform: uppercase;
-      letter-spacing: 0.06em;
+      letter-spacing: 0.08em;
+      margin-top: 2px;
     }
+
+    /* ── Capacity pill in header ── */
+    .cap-pill {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--glass);
+      border: 1px solid var(--glass-border);
+      border-radius: 40px;
+      padding: 6px 16px 6px 10px;
+      font-family: var(--mono);
+      font-size: 0.78rem;
+    }
+    .cap-dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: var(--teal);
+      box-shadow: 0 0 8px var(--teal);
+      animation: pulse-dot 2s ease-in-out infinite;
+    }
+    .cap-dot.warn { background: var(--gold); box-shadow: 0 0 8px var(--gold); }
+    .cap-dot.full { background: var(--red); box-shadow: 0 0 8px var(--red); }
+    @keyframes pulse-dot {
+      0%, 100% { opacity: 1; } 50% { opacity: 0.4; }
+    }
+    .cap-text { color: var(--text2); }
+    .cap-num { color: var(--text); font-weight: 500; }
+    .cap-num.warn { color: var(--gold); }
+    .cap-num.full { color: var(--red); }
 
     /* ── Layout ── */
     .layout {
       display: grid;
-      grid-template-columns: 1fr 380px;
-      gap: 0;
+      grid-template-columns: 1fr 360px;
       flex: 1;
       min-height: 0;
     }
 
-    /* ── Panel izquierdo ── */
+    /* ── Main panel ── */
     .main-panel {
       padding: 2rem;
       overflow-y: auto;
-      border-right: 1px solid var(--border);
+      border-right: 1px solid var(--glass-border);
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
     }
 
-    .section-title {
-      font-family: var(--display);
-      font-size: 0.75rem;
-      font-weight: 700;
+    /* ── Section label ── */
+    .sect-label {
+      font-family: var(--mono);
+      font-size: 0.62rem;
       text-transform: uppercase;
-      letter-spacing: 0.12em;
+      letter-spacing: 0.14em;
       color: var(--text3);
-      margin-bottom: 1.25rem;
-    }
-
-    /* ── OCR Zone ── */
-    .ocr-zone {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 1.5rem;
-      margin-bottom: 1.5rem;
-    }
-
-    .upload-area {
-      border: 2px dashed var(--border2);
-      border-radius: var(--radius-sm);
-      padding: 2.5rem 1rem;
-      text-align: center;
-      cursor: pointer;
-      transition: border-color 0.2s, background 0.2s;
-      position: relative;
-    }
-
-    .upload-area:hover,
-    .upload-area.dragover {
-      border-color: var(--accent);
-      background: rgba(240, 192, 64, 0.04);
-    }
-
-    .upload-area input {
-      position: absolute;
-      inset: 0;
-      opacity: 0;
-      cursor: pointer;
-      width: 100%;
-      height: 100%;
-    }
-
-    .upload-icon {
-      font-size: 2.5rem;
-      margin-bottom: 0.5rem;
-    }
-
-    .upload-text {
-      font-size: 0.9rem;
-      color: var(--text2);
-    }
-
-    .upload-sub {
-      font-size: 0.75rem;
-      color: var(--text3);
-      margin-top: 4px;
-      font-family: var(--mono);
-    }
-
-    #preview-container {
-      display: none;
-      margin-top: 1rem;
-      position: relative;
-    }
-
-    #preview-img {
-      width: 100%;
-      max-height: 260px;
-      object-fit: contain;
-      border-radius: var(--radius-sm);
-      background: #000;
-    }
-
-    .clear-btn {
-      position: absolute;
-      top: 8px;
-      right: 8px;
-      background: rgba(0, 0, 0, 0.7);
-      border: 1px solid var(--border2);
-      color: var(--text);
-      border-radius: 50%;
-      width: 28px;
-      height: 28px;
-      cursor: pointer;
-      font-size: 14px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    /* ── OCR Result ── */
-    .ocr-result {
-      margin-top: 1rem;
-      display: none;
-    }
-
-    .placa-display {
-      background: var(--surface2);
-      border: 2px solid var(--accent);
-      border-radius: var(--radius-sm);
-      padding: 1rem 1.5rem;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 1rem;
-    }
-
-    .placa-text {
-      font-family: var(--mono);
-      font-size: 2rem;
-      font-weight: 500;
-      letter-spacing: 0.15em;
-      color: var(--accent);
-    }
-
-    .placa-tipo {
+      margin-bottom: 1rem;
       display: flex;
       align-items: center;
       gap: 8px;
-      font-size: 0.85rem;
-      color: var(--text2);
     }
-
-    .tipo-badge {
-      background: var(--surface);
-      border: 1px solid var(--border2);
-      border-radius: 20px;
-      padding: 4px 12px;
-      font-size: 0.75rem;
-      font-family: var(--mono);
-      cursor: pointer;
-      transition: border-color 0.2s, background 0.2s;
-    }
-
-    .tipo-badge.active-moto {
-      background: rgba(74, 158, 255, 0.15);
-      border-color: var(--blue);
-      color: var(--blue);
-    }
-
-    .tipo-badge.active-carro {
-      background: rgba(34, 214, 150, 0.15);
-      border-color: var(--green);
-      color: var(--green);
-    }
-
-    .confianza-bar {
-      margin-top: 0.75rem;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      font-size: 0.75rem;
-      color: var(--text3);
-      font-family: var(--mono);
-    }
-
-    .bar-track {
+    .sect-label::after {
+      content: '';
       flex: 1;
-      height: 4px;
-      background: var(--surface2);
-      border-radius: 2px;
-      overflow: hidden;
+      height: 1px;
+      background: linear-gradient(to right, var(--glass-border), transparent);
     }
 
-    .bar-fill {
-      height: 100%;
-      background: var(--green);
-      border-radius: 2px;
-      transition: width 0.5s ease;
+    /* ── Panel card ── */
+    .panel {
+      background: var(--glass);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--r);
+      padding: 1.5rem;
+      transition: border-color 0.2s;
     }
+    .panel:hover { border-color: var(--glass-border-strong); }
 
-    /* ── Botones ── */
-    .btn-row {
-      display: flex;
+    /* ── OCR buttons row ── */
+    .ocr-btn-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
       gap: 10px;
-      margin-top: 1rem;
-      flex-wrap: wrap;
+      margin-bottom: 1.25rem;
     }
 
     .btn {
-      padding: 0.6rem 1.25rem;
-      border-radius: var(--radius-sm);
+      padding: 0.65rem 1.2rem;
+      border-radius: var(--r-sm);
       border: none;
       cursor: pointer;
       font-family: var(--sans);
       font-size: 0.85rem;
       font-weight: 500;
       transition: all 0.15s;
-      display: flex;
-      align-items: center;
-      gap: 6px;
+      display: flex; align-items: center; justify-content: center; gap: 7px;
+      position: relative;
+      overflow: hidden;
     }
+    .btn:active { transform: scale(0.97); }
 
-    .btn:active {
-      transform: scale(0.97);
+    .btn-gold {
+      background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 100%);
+      color: #1a0e00;
+      box-shadow: 0 4px 20px var(--glow-gold);
     }
+    .btn-gold:hover { filter: brightness(1.1); }
 
-    .btn-primary {
-      background: var(--accent);
-      color: #1a1200;
+    .btn-glass {
+      background: var(--glass);
+      border: 1px solid var(--glass-border-strong);
+      color: var(--text2);
     }
+    .btn-glass:hover { background: var(--glass-hover); color: var(--text); }
 
-    .btn-primary:hover {
-      background: var(--accent2);
+    .btn-teal {
+      background: var(--teal-dim);
+      border: 1px solid rgba(56,210,180,0.3);
+      color: var(--teal);
     }
+    .btn-teal:hover { background: rgba(56,210,180,0.2); }
 
-    .btn-danger {
+    .btn-red {
       background: var(--red-dim);
+      border: 1px solid rgba(255,107,107,0.3);
       color: var(--red);
-      border: 1px solid var(--red);
     }
+    .btn-red:hover { background: rgba(255,107,107,0.2); }
 
-    .btn-danger:hover {
-      background: rgba(255, 82, 82, 0.2);
-    }
-
-    .btn-ghost {
-      background: var(--surface2);
-      color: var(--text2);
-      border: 1px solid var(--border);
-    }
-
-    .btn-ghost:hover {
-      border-color: var(--border2);
-      color: var(--text);
-    }
-
-    .btn-scan {
-      background: linear-gradient(135deg, #1a2a4a, #0f2040);
-      color: var(--blue);
-      border: 1px solid var(--blue);
-      padding: 0.75rem 1.5rem;
-      font-size: 0.9rem;
+    .btn-block {
       width: 100%;
-      justify-content: center;
+      padding: 0.8rem;
       margin-top: 1rem;
-    }
-
-    .btn-scan:hover {
-      background: rgba(74, 158, 255, 0.1);
-    }
-
-    /* ── Manual entry ── */
-    .manual-entry {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 1.5rem;
-      margin-bottom: 1.5rem;
-    }
-
-    .form-row {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-      margin-bottom: 12px;
-    }
-
-    .form-group {
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-    }
-
-    .form-label {
-      font-size: 0.75rem;
-      font-family: var(--mono);
-      color: var(--text3);
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-    }
-
-    .form-input,
-    .form-select {
-      background: var(--surface2);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-sm);
-      color: var(--text);
-      font-family: var(--mono);
-      font-size: 1rem;
-      padding: 0.6rem 0.9rem;
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-      transition: border-color 0.2s;
-      outline: none;
-    }
-
-    .form-input:focus,
-    .form-select:focus {
-      border-color: var(--accent);
-    }
-
-    .form-select option {
-      background: var(--surface2);
-    }
-
-    /* ── Tabla activos ── */
-    .activos-section {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 1.5rem;
-      margin-bottom: 1.5rem;
-    }
-
-    .section-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 1rem;
-    }
-
-    .badge-count {
-      background: var(--accent);
-      color: #1a1200;
-      border-radius: 20px;
-      padding: 2px 10px;
-      font-size: 0.75rem;
-      font-weight: 600;
-      font-family: var(--mono);
-    }
-
-    .vehiculo-card {
-      background: var(--surface2);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-sm);
-      padding: 0.9rem 1rem;
-      margin-bottom: 8px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 1rem;
-      transition: border-color 0.2s;
-    }
-
-    .vehiculo-card:hover {
-      border-color: var(--border2);
-    }
-
-    .vc-placa {
-      font-family: var(--mono);
-      font-size: 1.1rem;
-      font-weight: 500;
-      color: var(--text);
-      letter-spacing: 0.08em;
-    }
-
-    .vc-info {
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-    }
-
-    .vc-tipo {
-      font-size: 0.7rem;
-      color: var(--text3);
-      text-transform: uppercase;
-      font-family: var(--mono);
-      letter-spacing: 0.06em;
-    }
-
-    .vc-tiempo {
-      font-size: 0.75rem;
-      color: var(--text2);
-      font-family: var(--mono);
-    }
-
-    .vc-cobro {
-      font-family: var(--mono);
-      font-size: 0.95rem;
-      font-weight: 500;
-      color: var(--green);
-      text-align: right;
-    }
-
-    .vc-cobro-label {
-      font-size: 0.65rem;
-      color: var(--text3);
-    }
-
-    .vc-actions {
-      display: flex;
-      gap: 6px;
+      font-size: 0.9rem;
     }
 
     .btn-sm {
       padding: 5px 12px;
-      font-size: 0.75rem;
+      font-size: 0.72rem;
       border-radius: 6px;
-      border: none;
-      cursor: pointer;
       font-family: var(--mono);
-      font-weight: 500;
-      transition: all 0.15s;
     }
 
-    .btn-sm:active {
-      transform: scale(0.96);
+    /* ── Camera container ── */
+    #camara-container {
+      display: none;
+      position: relative;
+      background: #000;
+      border-radius: var(--r-sm);
+      overflow: hidden;
+      margin-bottom: 1rem;
     }
-
-    .btn-salida {
-      background: var(--red-dim);
-      color: var(--red);
-      border: 1px solid rgba(255, 82, 82, 0.4);
+    #video-camara {
+      width: 100%; max-height: 280px; object-fit: cover; display: block;
     }
-
-    .btn-salida:hover {
-      background: rgba(255, 82, 82, 0.2);
+    .cam-overlay {
+      position: absolute; inset: 0;
+      display: flex; align-items: center; justify-content: center;
+      pointer-events: none;
     }
+    .cam-frame {
+      width: 68%; height: 36%;
+      border: 2px solid var(--gold);
+      border-radius: 8px;
+      box-shadow: 0 0 0 9999px rgba(0,0,0,0.4), 0 0 20px var(--glow-gold);
+    }
+    .cam-label {
+      position: absolute; top: -22px; left: 50%; transform: translateX(-50%);
+      font-size: 0.6rem; color: var(--gold); font-family: var(--mono);
+      text-transform: uppercase; letter-spacing: 0.1em;
+      background: rgba(0,0,0,0.7); padding: 2px 10px; border-radius: 4px;
+      white-space: nowrap;
+    }
+    .cam-top-controls {
+      position: absolute; top: 10px; right: 10px; display: flex; gap: 6px;
+    }
+    .cam-bottom { position: absolute; bottom: 14px; left: 0; right: 0; display: flex; justify-content: center; }
 
-    .empty-state {
+    /* ── Upload area ── */
+    .upload-area {
+      border: 2px dashed var(--glass-border-strong);
+      border-radius: var(--r-sm);
+      padding: 2.5rem 1rem;
       text-align: center;
-      padding: 2rem;
+      cursor: pointer;
+      transition: border-color 0.2s, background 0.2s;
+      position: relative;
+    }
+    .upload-area:hover, .upload-area.dragover {
+      border-color: var(--gold);
+      background: var(--gold-dim);
+    }
+    .upload-area input { position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; height: 100%; }
+    .upload-icon { font-size: 2.2rem; margin-bottom: 0.5rem; }
+    .upload-text { font-size: 0.88rem; color: var(--text2); }
+    .upload-sub { font-size: 0.7rem; color: var(--text3); margin-top: 4px; font-family: var(--mono); }
+
+    #preview-container { display: none; margin-top: 0.75rem; position: relative; }
+    #preview-img { width: 100%; max-height: 260px; object-fit: contain; border-radius: var(--r-sm); background: #000; }
+    .clear-btn {
+      position: absolute; top: 8px; right: 8px;
+      background: rgba(0,0,0,0.7); border: 1px solid var(--glass-border-strong);
+      color: var(--text); border-radius: 50%; width: 28px; height: 28px;
+      cursor: pointer; font-size: 13px;
+      display: flex; align-items: center; justify-content: center;
+    }
+
+    /* ── OCR Result ── */
+    .ocr-result { margin-top: 1rem; display: none; }
+
+    .placa-display {
+      background: linear-gradient(135deg, rgba(212,175,95,0.08), rgba(212,175,95,0.02));
+      border: 1px solid rgba(212,175,95,0.3);
+      border-radius: var(--r-sm);
+      padding: 1.1rem 1.4rem;
+      display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.06), 0 4px 20px rgba(212,175,95,0.08);
+    }
+    .placa-text {
+      font-family: var(--mono);
+      font-size: 2.2rem;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      color: var(--gold-light);
+      text-shadow: 0 0 30px var(--glow-gold);
+    }
+    .tipo-selector { display: flex; gap: 6px; }
+    .tipo-badge {
+      background: var(--glass);
+      border: 1px solid var(--glass-border-strong);
+      border-radius: 20px;
+      padding: 5px 14px;
+      font-size: 0.72rem;
+      font-family: var(--mono);
+      cursor: pointer;
+      transition: all 0.2s;
       color: var(--text3);
-      font-size: 0.85rem;
     }
+    .tipo-badge.active-moto { background: var(--blue-dim); border-color: var(--blue); color: var(--blue); }
+    .tipo-badge.active-carro { background: var(--teal-dim); border-color: var(--teal); color: var(--teal); }
 
-    .empty-icon {
-      font-size: 2rem;
-      margin-bottom: 0.5rem;
+    .conf-bar {
+      margin-top: 0.8rem;
+      display: flex; align-items: center; gap: 10px;
+      font-size: 0.7rem; color: var(--text3); font-family: var(--mono);
     }
+    .bar-track { flex: 1; height: 3px; background: var(--glass); border-radius: 2px; overflow: hidden; }
+    .bar-fill { height: 100%; background: linear-gradient(to right, var(--teal), var(--blue)); border-radius: 2px; transition: width 0.5s ease; }
 
-    /* ── Panel derecho ── */
-    .side-panel {
-      background: var(--surface);
-      overflow-y: auto;
-      padding: 2rem 1.5rem;
+    .action-row { display: flex; gap: 8px; margin-top: 1rem; flex-wrap: wrap; }
+
+    /* ── Form ── */
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px; }
+    .form-row-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-bottom: 12px; }
+    .form-group { display: flex; flex-direction: column; gap: 6px; }
+    .form-label {
+      font-size: 0.62rem; font-family: var(--mono);
+      color: var(--text3); text-transform: uppercase; letter-spacing: 0.08em;
     }
-
-    /* ── Stats ── */
-    .stats-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
-      margin-bottom: 1.5rem;
-    }
-
-    .stat-card {
-      background: var(--surface2);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-sm);
-      padding: 1rem;
-    }
-
-    .stat-val {
-      font-family: var(--display);
-      font-size: 1.6rem;
-      font-weight: 700;
+    .form-input, .form-select {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--glass-border-strong);
+      border-radius: var(--r-sm);
       color: var(--text);
-      line-height: 1;
-      margin-bottom: 4px;
-    }
-
-    .stat-label {
-      font-size: 0.68rem;
-      color: var(--text3);
+      font-family: var(--mono);
+      font-size: 0.95rem;
+      padding: 0.6rem 0.9rem;
       text-transform: uppercase;
       letter-spacing: 0.06em;
-      font-family: var(--mono);
+      transition: border-color 0.2s, box-shadow 0.2s;
+      outline: none;
+      width: 100%;
+    }
+    .form-input:focus, .form-select:focus {
+      border-color: var(--gold);
+      box-shadow: 0 0 0 3px var(--gold-dim);
+    }
+    .form-input[type="time"], .form-input[type="date"] {
+      color-scheme: dark;
+    }
+    .form-select option { background: #0c1220; }
+
+    /* ── Capacity bar ── */
+    .capacity-widget {
+      background: linear-gradient(135deg, rgba(56,210,180,0.06), rgba(56,210,180,0.01));
+      border: 1px solid rgba(56,210,180,0.18);
+      border-radius: var(--r);
+      padding: 1.25rem 1.5rem;
+    }
+    .cap-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1rem; }
+    .cap-title { font-size: 0.62rem; font-family: var(--mono); text-transform: uppercase; letter-spacing: 0.12em; color: var(--text3); }
+    .cap-numbers { font-family: var(--mono); text-align: right; }
+    .cap-big { font-size: 2rem; font-weight: 500; color: var(--teal); line-height: 1; }
+    .cap-big.warn { color: var(--gold); }
+    .cap-big.full { color: var(--red); }
+    .cap-sub { font-size: 0.65rem; color: var(--text3); margin-top: 2px; }
+    .cap-track {
+      width: 100%; height: 6px;
+      background: rgba(255,255,255,0.06);
+      border-radius: 3px; overflow: hidden;
+      margin-bottom: 0.75rem;
+    }
+    .cap-fill {
+      height: 100%;
+      background: linear-gradient(to right, var(--teal), #50ffcc);
+      border-radius: 3px;
+      transition: width 0.6s cubic-bezier(0.34,1.56,0.64,1), background 0.4s;
+    }
+    .cap-fill.warn { background: linear-gradient(to right, var(--gold), var(--gold-light)); }
+    .cap-fill.full { background: linear-gradient(to right, var(--red), #ff9999); }
+    .cap-slots {
+      display: flex; justify-content: space-between;
+      font-family: var(--mono); font-size: 0.68rem; color: var(--text3);
+    }
+    .cap-slots span { color: var(--text2); font-weight: 500; }
+
+    /* ── Activos list ── */
+    .section-header {
+      display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem;
+    }
+    .badge-count {
+      background: var(--gold); color: #1a0e00;
+      border-radius: 20px; padding: 2px 10px;
+      font-size: 0.7rem; font-weight: 600; font-family: var(--mono);
     }
 
-    .stat-accent {
-      color: var(--accent);
+    .vehiculo-card {
+      background: rgba(255,255,255,0.02);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--r-sm);
+      padding: 0.9rem 1rem;
+      margin-bottom: 8px;
+      display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+      transition: all 0.2s;
+    }
+    .vehiculo-card:hover {
+      background: var(--glass-hover);
+      border-color: var(--glass-border-strong);
+      transform: translateX(2px);
+    }
+    .vc-placa { font-family: var(--mono); font-size: 1.05rem; font-weight: 500; letter-spacing: 0.1em; }
+    .vc-info { display: flex; flex-direction: column; gap: 3px; }
+    .vc-tipo { font-size: 0.65rem; color: var(--text3); text-transform: uppercase; font-family: var(--mono); letter-spacing: 0.08em; }
+    .vc-tiempo { font-size: 0.7rem; color: var(--text2); font-family: var(--mono); }
+    .vc-cobro { font-family: var(--mono); font-size: 0.9rem; font-weight: 500; color: var(--teal); text-align: right; }
+    .vc-cobro-label { font-size: 0.6rem; color: var(--text3); }
+
+    /* ── Reserva card ── */
+    .reserva-card {
+      background: rgba(80,160,255,0.04);
+      border: 1px solid rgba(80,160,255,0.18);
+      border-radius: var(--r-sm);
+      padding: 0.9rem 1rem;
+      margin-bottom: 8px;
+      display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+      transition: all 0.2s;
+    }
+    .reserva-card.vencida {
+      opacity: 0.6;
+      border-color: rgba(255,107,107,0.2);
+      background: rgba(255,107,107,0.03);
+    }
+    .reserva-badge-vencida {
+      font-size: 0.58rem; font-family: var(--mono); text-transform: uppercase;
+      color: var(--red); letter-spacing: 0.06em;
+      background: var(--red-dim); border: 1px solid rgba(255,107,107,0.3);
+      border-radius: 4px; padding: 1px 6px; margin-left: 6px;
     }
 
-    .stat-green {
-      color: var(--green);
+    /* ── Empty state ── */
+    .empty-state {
+      text-align: center; padding: 2rem; color: var(--text3);
+      font-size: 0.82rem; font-family: var(--mono);
+    }
+    .empty-icon { font-size: 1.8rem; margin-bottom: 0.5rem; opacity: 0.5; }
+
+    /* ── Side panel ── */
+    .side-panel {
+      background: rgba(8,12,20,0.5);
+      overflow-y: auto;
+      padding: 2rem 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
     }
 
-    .stat-blue {
-      color: var(--blue);
+    /* ── Stats grid ── */
+    .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .stat-card {
+      background: var(--glass);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--r-sm);
+      padding: 1.1rem;
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.2s;
     }
+    .stat-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; height: 2px;
+      background: var(--accent-line, linear-gradient(to right, var(--gold), var(--gold-light)));
+      opacity: 0.6;
+    }
+    .stat-card.s-teal::before { --accent-line: linear-gradient(to right, var(--teal), #50ffcc); }
+    .stat-card.s-blue::before { --accent-line: linear-gradient(to right, var(--blue), #90c8ff); }
+    .stat-card.s-plain::before { --accent-line: linear-gradient(to right, var(--text3), transparent); }
+    .stat-val {
+      font-family: var(--display);
+      font-size: 1.7rem;
+      line-height: 1;
+      margin-bottom: 5px;
+    }
+    .stat-val.gold { color: var(--gold-light); }
+    .stat-val.teal { color: var(--teal); }
+    .stat-val.blue { color: var(--blue); }
+    .stat-label { font-size: 0.62rem; color: var(--text3); text-transform: uppercase; letter-spacing: 0.08em; font-family: var(--mono); }
+
+    /* ── Ticker ── */
+    .ticker-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 8px; }
+    .ticker-box {
+      background: var(--glass); border: 1px solid var(--glass-border);
+      border-radius: var(--r-sm); padding: 0.8rem; text-align: center;
+    }
+    .ticker-val { font-family: var(--mono); font-size: 1.1rem; font-weight: 500; line-height: 1; }
+    .ticker-label { font-size: 0.58rem; color: var(--text3); text-transform: uppercase; letter-spacing: 0.08em; font-family: var(--mono); margin-top: 4px; }
 
     /* ── Tarifas ── */
     .tarifa-card {
-      background: var(--surface2);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-sm);
+      background: var(--glass);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--r-sm);
       padding: 1rem;
-      margin-bottom: 10px;
     }
-
-    .tarifa-tipo {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      margin-bottom: 10px;
-    }
-
-    .tarifa-icon {
-      font-size: 1.2rem;
-    }
-
-    .tarifa-nombre {
-      font-weight: 600;
-      font-size: 0.9rem;
-    }
-
-    .tarifa-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 4px 0;
-      font-size: 0.8rem;
-    }
-
-    .tarifa-key {
-      color: var(--text3);
-      font-family: var(--mono);
-    }
-
-    .tarifa-val {
-      font-family: var(--mono);
-      font-weight: 500;
-      color: var(--accent);
-    }
+    .tarifa-tipo { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; }
+    .tarifa-icon { font-size: 1.2rem; }
+    .tarifa-nombre { font-weight: 600; font-size: 0.88rem; }
+    .tarifa-row { display: flex; justify-content: space-between; align-items: center; padding: 4px 0; font-size: 0.78rem; }
+    .tarifa-key { color: var(--text3); font-family: var(--mono); }
+    .tarifa-val { font-family: var(--mono); font-weight: 500; color: var(--gold); }
 
     /* ── Historial ── */
-    .historial-item {
-      border-bottom: 1px solid var(--border);
-      padding: 0.75rem 0;
-    }
+    .historial-item { border-bottom: 1px solid var(--glass-border); padding: 0.7rem 0; }
+    .historial-item:last-child { border-bottom: none; }
+    .hi-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2px; }
+    .hi-placa { font-family: var(--mono); font-size: 0.88rem; font-weight: 500; letter-spacing: 0.06em; }
+    .hi-valor { font-family: var(--mono); font-size: 0.88rem; color: var(--teal); font-weight: 500; }
+    .hi-bottom { display: flex; justify-content: space-between; font-size: 0.65rem; color: var(--text3); font-family: var(--mono); }
 
-    .historial-item:last-child {
-      border-bottom: none;
+    /* ── Modal ── */
+    .modal-overlay {
+      display: none; position: fixed; inset: 0;
+      background: rgba(0,0,0,0.7);
+      backdrop-filter: blur(8px);
+      z-index: 200; align-items: center; justify-content: center;
     }
-
-    .hi-top {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 2px;
+    .modal-overlay.open { display: flex; }
+    .modal {
+      background: linear-gradient(145deg, rgba(12,18,32,0.98), rgba(8,12,20,0.98));
+      border: 1px solid var(--glass-border-strong);
+      border-radius: var(--r);
+      padding: 2rem;
+      width: 420px; max-width: 90vw;
+      box-shadow: 0 40px 80px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.04);
     }
-
-    .hi-placa {
-      font-family: var(--mono);
-      font-size: 0.9rem;
-      font-weight: 500;
-      letter-spacing: 0.06em;
-    }
-
-    .hi-valor {
-      font-family: var(--mono);
-      font-size: 0.9rem;
-      color: var(--green);
-      font-weight: 500;
-    }
-
-    .hi-bottom {
-      display: flex;
-      justify-content: space-between;
-      font-size: 0.7rem;
-      color: var(--text3);
-      font-family: var(--mono);
-    }
+    .modal-title { font-family: var(--display); font-size: 1.3rem; margin-bottom: 1.5rem; }
+    .modal-cobro { font-family: var(--mono); font-size: 3rem; font-weight: 400; color: var(--teal); text-align: center; margin: 1.5rem 0; text-shadow: 0 0 40px var(--glow-teal); }
+    .modal-detail { background: var(--glass); border-radius: var(--r-sm); padding: 1rem; margin-bottom: 1.5rem; }
+    .modal-row { display: flex; justify-content: space-between; font-size: 0.78rem; padding: 4px 0; font-family: var(--mono); }
+    .modal-row-key { color: var(--text3); }
+    .modal-row-val { color: var(--text); }
+    .modal-btn-row { display: flex; gap: 8px; justify-content: flex-end; }
 
     /* ── Toast ── */
     #toast {
-      position: fixed;
-      bottom: 2rem;
-      left: 50%;
+      position: fixed; bottom: 2rem; left: 50%;
       transform: translateX(-50%) translateY(100px);
-      background: var(--surface2);
-      border: 1px solid var(--border2);
-      border-radius: var(--radius);
-      padding: 0.9rem 1.5rem;
-      font-size: 0.9rem;
-      max-width: 420px;
-      text-align: center;
-      transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+      background: rgba(12,18,32,0.95);
+      backdrop-filter: blur(20px);
+      border: 1px solid var(--glass-border-strong);
+      border-radius: 40px;
+      padding: 0.8rem 1.8rem;
+      font-size: 0.88rem; max-width: 420px; text-align: center;
+      transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1);
       z-index: 999;
     }
-
-    #toast.show {
-      transform: translateX(-50%) translateY(0);
-    }
-
-    #toast.toast-ok {
-      border-color: var(--green);
-      color: var(--green);
-    }
-
-    #toast.toast-err {
-      border-color: var(--red);
-      color: var(--red);
-    }
-
-    #toast.toast-info {
-      border-color: var(--accent);
-      color: var(--accent);
-    }
+    #toast.show { transform: translateX(-50%) translateY(0); }
+    #toast.toast-ok { border-color: rgba(56,210,180,0.5); color: var(--teal); }
+    #toast.toast-err { border-color: rgba(255,107,107,0.5); color: var(--red); }
+    #toast.toast-info { border-color: rgba(212,175,95,0.5); color: var(--gold); }
 
     /* ── Spinner ── */
     .spinner {
-      width: 20px;
-      height: 20px;
-      border: 2px solid var(--border2);
-      border-top-color: var(--accent);
+      width: 16px; height: 16px;
+      border: 2px solid rgba(255,255,255,0.15);
+      border-top-color: var(--gold);
       border-radius: 50%;
       animation: spin 0.7s linear infinite;
       display: inline-block;
     }
+    @keyframes spin { to { transform: rotate(360deg); } }
 
-    @keyframes spin {
-      to {
-        transform: rotate(360deg);
-      }
+    /* ── Divider ── */
+    .divider { height: 1px; background: var(--glass-border); margin: 0.25rem 0; }
+
+    /* ── Responsive ── */
+    @media (max-width: 960px) {
+      .layout { grid-template-columns: 1fr; }
+      .side-panel { border-top: 1px solid var(--glass-border); }
+      .header-right .cap-pill { display: none; }
     }
-
-    /* ── Ticker ── */
-    .ticker-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 8px;
-      margin-bottom: 1.5rem;
-    }
-
-    .ticker-box {
-      background: var(--surface2);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-sm);
-      padding: 0.75rem;
-      text-align: center;
-    }
-
-    .ticker-val {
-      font-family: var(--mono);
-      font-size: 1.3rem;
-      font-weight: 500;
-    }
-
-    .ticker-label {
-      font-size: 0.6rem;
-      color: var(--text3);
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-      font-family: var(--mono);
-    }
-
-    /* ── Modal cobro ── */
-    .modal-overlay {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(0, 0, 0, 0.75);
-      z-index: 200;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .modal-overlay.open {
-      display: flex;
-    }
-
-    .modal {
-      background: var(--surface);
-      border: 1px solid var(--border2);
-      border-radius: var(--radius);
-      padding: 2rem;
-      width: 400px;
-      max-width: 90vw;
-    }
-
-    .modal-title {
-      font-family: var(--display);
-      font-size: 1.2rem;
-      font-weight: 700;
-      margin-bottom: 1.5rem;
-    }
-
-    .modal-cobro {
-      font-family: var(--mono);
-      font-size: 3rem;
-      font-weight: 500;
-      color: var(--green);
-      text-align: center;
-      margin: 1.5rem 0;
-    }
-
-    .modal-detail {
-      background: var(--surface2);
-      border-radius: var(--radius-sm);
-      padding: 1rem;
-      margin-bottom: 1.5rem;
-    }
-
-    .modal-row {
-      display: flex;
-      justify-content: space-between;
-      font-size: 0.8rem;
-      padding: 4px 0;
-      font-family: var(--mono);
-    }
-
-    .modal-row-key {
-      color: var(--text3);
-    }
-
-    .modal-row-val {
-      color: var(--text);
-    }
-
-    @media (max-width: 900px) {
-      .layout {
-        grid-template-columns: 1fr;
-      }
-
-      .side-panel {
-        border-right: none;
-        border-top: 1px solid var(--border);
-      }
-
-      .header-stats {
-        display: none;
-      }
+    @media (max-width: 600px) {
+      header { padding: 0 1rem; }
+      .main-panel, .side-panel { padding: 1.25rem; }
+      .form-row { grid-template-columns: 1fr; }
+      .form-row-3 { grid-template-columns: 1fr 1fr; }
     }
   </style>
 </head>
-
 <body>
 
+  <!-- ── Header ── -->
   <header>
     <div class="logo">
-      <div class="logo-icon">🅿️</div>
+      <div class="logo-icon">🅿</div>
       <div>
         <div class="logo-text">Parqueadero Unibagué</div>
-        <div class="logo-sub">Sistema de control vehicular</div>
+        <div class="logo-sub">Control vehicular · OCR</div>
       </div>
     </div>
-    <div class="header-stats">
+    <div class="header-right">
+      <div class="cap-pill" id="header-cap-pill">
+        <div class="cap-dot" id="cap-dot"></div>
+        <span class="cap-text">Capacidad</span>
+        <span class="cap-num" id="cap-num-header">—</span>
+        <span class="cap-text">/ 100</span>
+      </div>
       <div class="hstat">
         <div class="hstat-val" id="h-activos">—</div>
         <div class="hstat-label">En parqueadero</div>
@@ -878,7 +682,7 @@
         <div class="hstat-label">Ingresos hoy</div>
       </div>
       <div class="hstat">
-        <div class="hstat-val" id="h-hora" style="color: var(--text2);">—</div>
+        <div class="hstat-val" id="h-hora" style="color:var(--text2)">—</div>
         <div class="hstat-label">Hora actual</div>
       </div>
     </div>
@@ -886,51 +690,29 @@
 
   <div class="layout">
 
+    <!-- ── Main panel ── -->
     <main class="main-panel">
 
-      <div class="ocr-zone">
-        <div class="section-title">📷 Reconocimiento OCR de placa</div>
-
-        <div style="display:flex; gap:8px; margin-bottom:1rem;">
-          <button class="btn btn-primary" id="btn-abrir-camara" onclick="abrirCamara()"
-            style="flex:1; justify-content:center;">
-            📹 Usar cámara en vivo
-          </button>
-          <button class="btn btn-ghost" id="btn-subir-archivo" onclick="document.getElementById('img-input').click()"
-            style="flex:1; justify-content:center;">
-            🖼️ Subir imagen
-          </button>
-          <input type="file" id="img-input" accept="image/*" style="display:none;" />
+      <!-- OCR -->
+      <div class="panel">
+        <div class="sect-label">📷 Reconocimiento OCR de placa</div>
+        <div class="ocr-btn-row">
+          <button class="btn btn-gold" onclick="abrirCamara()">📹 Cámara en vivo</button>
+          <button class="btn btn-glass" onclick="document.getElementById('img-input').click()">🖼️ Subir imagen</button>
         </div>
+        <input type="file" id="img-input" accept="image/*" style="display:none;" />
 
-        <div id="camara-container"
-          style="display:none; position:relative; background:#000; border-radius:var(--radius-sm); overflow:hidden;">
-          <video id="video-camara" autoplay playsinline muted
-            style="width:100%; max-height:280px; object-fit:cover; display:block;"></video>
-          <div
-            style="position:absolute; inset:0; display:flex; align-items:center; justify-content:center; pointer-events:none;">
-            <div
-              style="width:70%; height:35%; border:2px solid var(--accent); border-radius:6px; box-shadow:0 0 0 9999px rgba(0,0,0,0.35);">
-              <div
-                style="position:absolute; top:-18px; left:50%; transform:translateX(-50%); font-size:0.65rem; color:var(--accent); font-family:var(--mono); white-space:nowrap; background:rgba(0,0,0,0.6); padding:2px 8px; border-radius:4px;">
-                Centra la placa aquí
-              </div>
-            </div>
+        <div id="camara-container">
+          <video id="video-camara" autoplay playsinline muted></video>
+          <div class="cam-overlay">
+            <div class="cam-frame"><div class="cam-label">Centra la placa aquí</div></div>
           </div>
-          <div style="position:absolute; top:8px; right:8px; display:flex; gap:6px;">
-            <select id="sel-camara" onchange="cambiarCamara()"
-              style="background:rgba(0,0,0,0.7); color:var(--text); border:1px solid var(--border2); border-radius:6px; font-size:0.7rem; padding:4px 8px; font-family:var(--mono);">
-            </select>
-            <button onclick="cerrarCamara()"
-              style="background:rgba(0,0,0,0.7); border:1px solid var(--border2); color:var(--text); border-radius:6px; padding:4px 10px; cursor:pointer; font-size:0.75rem;">
-              ✕
-            </button>
+          <div class="cam-top-controls">
+            <select id="sel-camara" onchange="cambiarCamara()" style="background:rgba(0,0,0,0.75);color:var(--text);border:1px solid var(--glass-border-strong);border-radius:6px;font-size:0.68rem;padding:4px 8px;font-family:var(--mono);"></select>
+            <button onclick="cerrarCamara()" style="background:rgba(0,0,0,0.75);border:1px solid var(--glass-border-strong);color:var(--text);border-radius:6px;padding:4px 10px;cursor:pointer;font-size:0.78rem;">✕</button>
           </div>
-          <div style="position:absolute; bottom:12px; left:0; right:0; display:flex; justify-content:center; gap:10px;">
-            <button onclick="capturarFoto()"
-              style="background:var(--accent); color:#1a1200; border:none; border-radius:50px; padding:10px 28px; font-weight:600; font-size:0.95rem; cursor:pointer; font-family:var(--sans);">
-              📸 Capturar y analizar
-            </button>
+          <div class="cam-bottom">
+            <button onclick="capturarFoto()" style="background:var(--gold);color:#1a0e00;border:none;border-radius:50px;padding:10px 28px;font-weight:600;font-size:0.9rem;cursor:pointer;font-family:var(--sans);box-shadow:0 4px 20px var(--glow-gold);">📸 Capturar y analizar</button>
           </div>
           <canvas id="canvas-captura" style="display:none;"></canvas>
         </div>
@@ -938,59 +720,71 @@
         <div class="upload-area" id="upload-area" style="display:none;">
           <div class="upload-icon">🖼️</div>
           <div class="upload-text">Arrastra una imagen o haz clic para seleccionar</div>
-          <div class="upload-sub">JPG, PNG, WEBP · Máx 10 MB</div>
+          <div class="upload-sub">JPG · PNG · WEBP · Máx 10 MB</div>
         </div>
 
-        <div id="preview-container" style="display:none; position:relative; margin-top:0.5rem;">
-          <img id="preview-img" alt="Vista previa"
-            style="width:100%; max-height:260px; object-fit:contain; border-radius:var(--radius-sm); background:#000;" />
+        <div id="preview-container">
+          <img id="preview-img" alt="Vista previa" style="width:100%;max-height:260px;object-fit:contain;border-radius:var(--r-sm);background:#000;" />
           <button class="clear-btn" onclick="clearPreview()" title="Quitar imagen">✕</button>
         </div>
 
-        <button class="btn btn-scan" id="btn-scan" onclick="ejecutarOCR()" style="display:none;">
+        <button class="btn btn-glass btn-block" id="btn-scan" onclick="ejecutarOCR()" style="display:none;">
           <span id="scan-icon">🔍</span>
-          <span id="scan-text">Analizar con YOLOv8 + OCR</span>
+          <span id="scan-text">Analizar con YOLO + OCR</span>
         </button>
 
         <div class="ocr-result" id="ocr-result">
           <div class="placa-display">
             <div>
-              <div
-                style="font-size: 0.65rem; color: var(--text3); font-family: var(--mono); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 4px;">
-                Placa detectada</div>
+              <div style="font-size:0.6rem;color:var(--text3);font-family:var(--mono);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:6px;">Placa detectada</div>
               <div class="placa-text" id="ocr-placa">—</div>
             </div>
-            <div class="placa-tipo">
-              <div style="display: flex; flex-direction: column; align-items: flex-end; gap: 6px;">
-                <div style="font-size: 0.7rem; color: var(--text3);">Tipo vehículo:</div>
-                <div style="display: flex; gap: 6px;">
-                  <span class="tipo-badge" id="badge-moto" onclick="setTipo('moto')">🏍 Moto</span>
-                  <span class="tipo-badge" id="badge-carro" onclick="setTipo('carro')">🚗 Carro</span>
-                </div>
+            <div>
+              <div style="font-size:0.6rem;color:var(--text3);font-family:var(--mono);text-align:right;margin-bottom:6px;">Tipo vehículo</div>
+              <div class="tipo-selector">
+                <span class="tipo-badge" id="badge-moto" onclick="setTipo('moto')">🏍 Moto</span>
+                <span class="tipo-badge" id="badge-carro" onclick="setTipo('carro')">🚗 Carro</span>
               </div>
             </div>
           </div>
-          <div class="confianza-bar">
+          <div class="conf-bar">
             <span>OCR</span>
-            <div class="bar-track">
-              <div class="bar-fill" id="conf-bar" style="width:0%"></div>
-            </div>
+            <div class="bar-track"><div class="bar-fill" id="conf-bar" style="width:0%"></div></div>
             <span id="conf-val">0%</span>
           </div>
-          <div class="btn-row">
-            <button class="btn btn-primary" onclick="registrarEntrada()">✅ Registrar entrada</button>
-            <button class="btn btn-ghost" onclick="editarPlaca()">✏️ Editar placa</button>
+          <div class="action-row">
+            <button class="btn btn-gold" onclick="registrarEntrada()">✅ Registrar entrada</button>
+            <button class="btn btn-glass" onclick="editarPlaca()">✏️ Editar placa</button>
           </div>
         </div>
       </div>
 
-      <div class="manual-entry">
-        <div class="section-title">⌨️ Registro manual</div>
+      <!-- Capacidad en tiempo real -->
+      <div class="capacity-widget" id="capacity-widget">
+        <div class="cap-header">
+          <div>
+            <div class="cap-title">Capacidad del parqueadero</div>
+            <div style="font-size:0.7rem;color:var(--text2);margin-top:4px;font-family:var(--mono);" id="cap-status-text">Cargando…</div>
+          </div>
+          <div class="cap-numbers">
+            <div class="cap-big" id="cap-activos-big">—</div>
+            <div class="cap-sub">de 100 espacios ocupados</div>
+          </div>
+        </div>
+        <div class="cap-track"><div class="cap-fill" id="cap-fill" style="width:0%"></div></div>
+        <div class="cap-slots">
+          <div>🟢 Disponibles: <span id="cap-libre">—</span></div>
+          <div>🔴 Ocupados: <span id="cap-usado">—</span></div>
+        </div>
+      </div>
+
+      <!-- Registro manual -->
+      <div class="panel">
+        <div class="sect-label">⌨️ Registro manual</div>
         <div class="form-row">
           <div class="form-group">
             <label class="form-label">Placa</label>
-            <input class="form-input" id="manual-placa" placeholder="ABC123" maxlength="6"
-              oninput="this.value=this.value.toUpperCase()" />
+            <input class="form-input" id="manual-placa" placeholder="ABC123" maxlength="6" oninput="this.value=this.value.toUpperCase()" />
           </div>
           <div class="form-group">
             <label class="form-label">Tipo</label>
@@ -1000,150 +794,136 @@
             </select>
           </div>
         </div>
-        <div class="btn-row">
-          <button class="btn btn-primary" onclick="registrarManual()">✅ Registrar entrada</button>
-          <button class="btn btn-danger" onclick="registrarSalidaManual()">🚪 Registrar salida</button>
+        <div class="action-row">
+          <button class="btn btn-gold" onclick="registrarManual()">✅ Registrar entrada</button>
+          <button class="btn btn-red" onclick="registrarSalidaManual()">🚪 Registrar salida</button>
         </div>
       </div>
 
-      <div class="manual-entry">
-        <div class="section-title">📅 Reservas Activas</div>
-
-        <div class="form-row"
-          style="margin-bottom: 1rem; border-bottom: 1px solid var(--border); padding-bottom: 1rem;">
+      <!-- Reservas -->
+      <div class="panel">
+        <div class="sect-label">📅 Reservas</div>
+        <div class="form-row-3" style="align-items:end;">
           <div class="form-group">
-            <input class="form-input" id="res-placa" placeholder="PLACA" maxlength="6"
-              oninput="this.value=this.value.toUpperCase()" />
+            <label class="form-label">Placa</label>
+            <input class="form-input" id="res-placa" placeholder="ABC123" maxlength="6" oninput="this.value=this.value.toUpperCase()" />
           </div>
           <div class="form-group">
+            <label class="form-label">Tipo</label>
             <select class="form-select" id="res-tipo">
               <option value="carro">🚗 Automóvil</option>
               <option value="moto">🏍 Motocicleta</option>
             </select>
           </div>
           <div class="form-group">
-            <input type="time" class="form-input" id="res-hora" />
-            <label>Fecha de reserva:</label>
-            <input type="date" id="res-fecha" />
+            <label class="form-label">Fecha</label>
+            <input type="date" class="form-input" id="res-fecha" />
           </div>
-          <button class="btn btn-primary" onclick="crearReserva()">+ Reservar</button>
         </div>
-
-        <div id="reservas-list">
+        <div style="display:grid;grid-template-columns:1fr auto;gap:10px;align-items:end;margin-bottom:1.25rem;">
+          <div class="form-group">
+            <label class="form-label">Hora esperada</label>
+            <input type="time" class="form-input" id="res-hora" />
+          </div>
+          <button class="btn btn-teal" style="height:40px;white-space:nowrap;" onclick="crearReserva()">+ Reservar</button>
+        </div>
+        <div class="divider"></div>
+        <div style="margin-top:1rem;" id="reservas-list">
           <div class="empty-state">Sin reservas pendientes</div>
         </div>
       </div>
 
-      <div class="activos-section">
+      <!-- Vehículos activos -->
+      <div class="panel">
         <div class="section-header">
-          <div class="disponibilidad-card">
-            <h3>Cupos Disponibles</h3>
-            <div id="contador-cupos" class="big-number">--</div>
-            <p>/ 100 Totales</p>
-          </div>
-          <div class="section-title" style="margin-bottom: 0;">🚘 En parqueadero ahora</div>
+          <div class="sect-label" style="margin-bottom:0;">🚘 En parqueadero ahora</div>
           <span class="badge-count" id="badge-activos">0</span>
         </div>
         <div id="activos-list">
-          <div class="empty-state">
-            <div class="empty-icon">🏁</div>
-            <div>Sin vehículos activos</div>
-          </div>
+          <div class="empty-state"><div class="empty-icon">🏁</div><div>Sin vehículos activos</div></div>
         </div>
       </div>
 
     </main>
 
+    <!-- ── Side panel ── -->
     <aside class="side-panel">
 
-      <div class="section-title">📊 Estadísticas del día</div>
-      <div class="stats-grid" style="margin-bottom: 1.5rem;">
-        <div class="stat-card">
-          <div class="stat-val stat-accent" id="stat-activos">0</div>
-          <div class="stat-label">Activos</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-val stat-green" id="stat-ingresos">$0</div>
-          <div class="stat-label">Ingresos</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-val stat-blue" id="stat-motos">0</div>
-          <div class="stat-label">Motos hoy</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-val" id="stat-carros">0</div>
-          <div class="stat-label">Carros hoy</div>
-        </div>
-      </div>
-
-      <div class="ticker-grid">
-        <div class="ticker-box">
-          <div class="ticker-val" id="tk-total" style="color: var(--text);">0</div>
-          <div class="ticker-label">Total hoy</div>
-        </div>
-        <div class="ticker-box">
-          <div class="ticker-val" id="tk-prom" style="color: var(--accent);">$0</div>
-          <div class="ticker-label">Promedio</div>
-        </div>
-        <div class="ticker-box">
-          <div class="ticker-val" id="tk-cap" style="color: var(--text2);">—</div>
-          <div class="ticker-label">Capacidad</div>
+      <div>
+        <div class="sect-label">📊 Estadísticas del día</div>
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-val gold" id="stat-activos">0</div>
+            <div class="stat-label">Activos ahora</div>
+          </div>
+          <div class="stat-card s-teal">
+            <div class="stat-val teal" id="stat-ingresos">$0</div>
+            <div class="stat-label">Ingresos hoy</div>
+          </div>
+          <div class="stat-card s-blue">
+            <div class="stat-val blue" id="stat-motos">0</div>
+            <div class="stat-label">Motos hoy</div>
+          </div>
+          <div class="stat-card s-plain">
+            <div class="stat-val" id="stat-carros">0</div>
+            <div class="stat-label">Carros hoy</div>
+          </div>
         </div>
       </div>
 
-      <div class="section-title">💰 Tarifas vigentes</div>
-
-      <div class="tarifa-card">
-        <div class="tarifa-tipo">
-          <span class="tarifa-icon">🚗</span>
-          <span class="tarifa-nombre">Automóvil</span>
-        </div>
-        <div class="tarifa-row">
-          <span class="tarifa-key">Por hora</span>
-          <span class="tarifa-val" id="tarifa-carro-hora">$3.000</span>
-        </div>
-        <div class="tarifa-row">
-          <span class="tarifa-key">Fracción (≤30 min)</span>
-          <span class="tarifa-val" id="tarifa-carro-frac">$1.500</span>
-        </div>
-      </div>
-
-      <div class="tarifa-card" style="margin-bottom: 1.5rem;">
-        <div class="tarifa-tipo">
-          <span class="tarifa-icon">🏍</span>
-          <span class="tarifa-nombre">Motocicleta</span>
-        </div>
-        <div class="tarifa-row">
-          <span class="tarifa-key">Por hora</span>
-          <span class="tarifa-val" id="tarifa-moto-hora">$1.500</span>
-        </div>
-        <div class="tarifa-row">
-          <span class="tarifa-key">Fracción (≤30 min)</span>
-          <span class="tarifa-val" id="tarifa-moto-frac">$800</span>
+      <div>
+        <div class="ticker-grid">
+          <div class="ticker-box">
+            <div class="ticker-val" id="tk-total" style="color:var(--text);">0</div>
+            <div class="ticker-label">Total hoy</div>
+          </div>
+          <div class="ticker-box">
+            <div class="ticker-val" id="tk-prom" style="color:var(--gold);">$0</div>
+            <div class="ticker-label">Promedio</div>
+          </div>
+          <div class="ticker-box">
+            <div class="ticker-val" id="tk-cap" style="color:var(--teal);">—</div>
+            <div class="ticker-label">Disponibles</div>
+          </div>
         </div>
       </div>
 
-      <div class="section-header" style="margin-bottom: 1rem;">
-        <div class="section-title" style="margin-bottom: 0;">📋 Últimos registros</div>
-        <button class="btn btn-ghost btn-sm" onclick="cargarHistorial()">↻</button>
+      <div>
+        <div class="sect-label">💰 Tarifas vigentes</div>
+        <div class="tarifa-card" style="margin-bottom:10px;">
+          <div class="tarifa-tipo"><span class="tarifa-icon">🚗</span><span class="tarifa-nombre">Automóvil</span></div>
+          <div class="tarifa-row"><span class="tarifa-key">Por hora</span><span class="tarifa-val" id="tarifa-carro-hora">$3.000</span></div>
+          <div class="tarifa-row"><span class="tarifa-key">Fracción ≤30min</span><span class="tarifa-val" id="tarifa-carro-frac">$1.500</span></div>
+        </div>
+        <div class="tarifa-card">
+          <div class="tarifa-tipo"><span class="tarifa-icon">🏍</span><span class="tarifa-nombre">Motocicleta</span></div>
+          <div class="tarifa-row"><span class="tarifa-key">Por hora</span><span class="tarifa-val" id="tarifa-moto-hora">$1.500</span></div>
+          <div class="tarifa-row"><span class="tarifa-key">Fracción ≤30min</span><span class="tarifa-val" id="tarifa-moto-frac">$800</span></div>
+        </div>
       </div>
-      <div id="historial-list">
-        <div class="empty-state">
-          <div>Sin registros</div>
+
+      <div>
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0.75rem;">
+          <div class="sect-label" style="margin-bottom:0;">📋 Últimos registros</div>
+          <button class="btn btn-glass btn-sm" onclick="cargarHistorial()" style="font-size:0.7rem;">↻</button>
+        </div>
+        <div id="historial-list">
+          <div class="empty-state">Sin registros</div>
         </div>
       </div>
 
     </aside>
   </div>
 
+  <!-- Modal cobro -->
   <div class="modal-overlay" id="modal-cobro">
     <div class="modal">
       <div class="modal-title">💰 Cobro de salida</div>
       <div class="modal-cobro" id="modal-cobro-val">$0</div>
       <div class="modal-detail" id="modal-detail"></div>
-      <div class="btn-row" style="justify-content: flex-end;">
-        <button class="btn btn-ghost" onclick="cerrarModal()">Cancelar</button>
-        <button class="btn btn-primary" onclick="confirmarSalida()">✅ Confirmar cobro</button>
+      <div class="modal-btn-row">
+        <button class="btn btn-glass" onclick="cerrarModal()">Cancelar</button>
+        <button class="btn btn-gold" onclick="confirmarSalida()">✅ Confirmar cobro</button>
       </div>
     </div>
   </div>
@@ -1151,18 +931,16 @@
   <div id="toast"></div>
 
   <script>
-    const API = '';  // Mismo origen; cambiar a http://localhost:8000 si es diferente
+    const API = '';
+    const CAP_MAX = 100;
 
-    let ocrPlaca = null;
-    let ocrTipo = 'carro';
-    let imagenFile = null;
-    let salidaPendiente = null;
+    let ocrPlaca = null, ocrTipo = 'carro', imagenFile = null, salidaPendiente = null;
+    let streamActual = null;
 
     // ── Reloj ──
     function actualizarReloj() {
-      const ahora = new Date();
       document.getElementById('h-hora').textContent =
-        ahora.toLocaleTimeString('es-CO', { hour: '2-digit', minute: '2-digit' });
+        new Date().toLocaleTimeString('es-CO', { hour: '2-digit', minute: '2-digit' });
     }
     setInterval(actualizarReloj, 1000);
     actualizarReloj();
@@ -1173,19 +951,66 @@
       el.textContent = msg;
       el.className = `toast-${tipo} show`;
       clearTimeout(el._t);
-      el._t = setTimeout(() => { el.classList.remove('show'); }, 3500);
+      el._t = setTimeout(() => el.classList.remove('show'), 3500);
     }
 
-    // ── Cámara en vivo ──
-    let streamActual = null;
-    let dispositivoActual = null;
+    // ── Capacidad ──
+    function actualizarCapacidad(activos) {
+      const libre = CAP_MAX - activos;
+      const pct = Math.min(100, (activos / CAP_MAX) * 100);
+      const nivel = pct >= 100 ? 'full' : pct >= 80 ? 'warn' : 'ok';
 
+      const fill = document.getElementById('cap-fill');
+      const big = document.getElementById('cap-activos-big');
+      const dot = document.getElementById('cap-dot');
+      const capNum = document.getElementById('cap-num-header');
+      const statusText = document.getElementById('cap-status-text');
+
+      fill.style.width = pct + '%';
+      fill.className = 'cap-fill' + (nivel === 'full' ? ' full' : nivel === 'warn' ? ' warn' : '');
+      big.textContent = activos;
+      big.className = 'cap-big' + (nivel === 'full' ? ' full' : nivel === 'warn' ? ' warn' : '');
+      dot.className = 'cap-dot' + (nivel === 'full' ? ' full' : nivel === 'warn' ? ' warn' : '');
+      capNum.textContent = activos;
+      capNum.className = 'cap-num' + (nivel === 'full' ? ' full' : nivel === 'warn' ? ' warn' : '');
+
+      document.getElementById('cap-libre').textContent = libre;
+      document.getElementById('cap-usado').textContent = activos;
+      document.getElementById('tk-cap').textContent = libre;
+
+      if (nivel === 'full') {
+        statusText.textContent = '⛔ Parqueadero lleno — no se pueden registrar más vehículos';
+        statusText.style.color = 'var(--red)';
+      } else if (nivel === 'warn') {
+        statusText.textContent = `⚠️ Capacidad alta — quedan ${libre} espacios disponibles`;
+        statusText.style.color = 'var(--gold)';
+      } else {
+        statusText.textContent = `✅ ${libre} espacios disponibles de 100`;
+        statusText.style.color = 'var(--teal)';
+      }
+    }
+
+    // ── Validar capacidad antes de entrada ──
+    async function verificarCapacidadYRegistrar(placa, tipo) {
+      try {
+        const resp = await fetch(`${API}/api/vehiculos/activos`);
+        const data = await resp.json();
+        if (data.total >= CAP_MAX) {
+          toast('⛔ Parqueadero lleno (100/100). No se pueden ingresar más vehículos.', 'err');
+          return false;
+        }
+        return true;
+      } catch {
+        return true; // si falla la verificación, dejar continuar (el backend lo rechazará)
+      }
+    }
+
+    // ── Cámara ──
     async function abrirCamara() {
       document.getElementById('upload-area').style.display = 'none';
       document.getElementById('preview-container').style.display = 'none';
       document.getElementById('btn-scan').style.display = 'none';
       document.getElementById('ocr-result').style.display = 'none';
-
       try {
         const dispositivos = await navigator.mediaDevices.enumerateDevices();
         const camaras = dispositivos.filter(d => d.kind === 'videoinput');
@@ -1197,21 +1022,14 @@
           opt.textContent = cam.label || `Cámara ${i + 1}`;
           sel.appendChild(opt);
         });
-
-        const trasera = camaras.find(c => c.label.toLowerCase().includes('back') ||
-          c.label.toLowerCase().includes('rear') || c.label.toLowerCase().includes('trasera'));
+        const trasera = camaras.find(c => c.label.toLowerCase().includes('back') || c.label.toLowerCase().includes('rear') || c.label.toLowerCase().includes('trasera'));
         if (trasera) sel.value = trasera.deviceId;
-
         await iniciarStream(sel.value);
         document.getElementById('camara-container').style.display = 'block';
       } catch (err) {
-        if (err.name === 'NotAllowedError') {
-          toast('❌ Permiso de cámara denegado — actívalo en el navegador', 'err');
-        } else if (err.name === 'NotFoundError') {
-          toast('❌ No se encontró cámara conectada', 'err');
-        } else {
-          toast(`❌ Error cámara: ${err.message}`, 'err');
-        }
+        if (err.name === 'NotAllowedError') toast('❌ Permiso de cámara denegado', 'err');
+        else if (err.name === 'NotFoundError') toast('❌ No se encontró cámara conectada', 'err');
+        else toast(`❌ Error cámara: ${err.message}`, 'err');
         document.getElementById('upload-area').style.display = 'flex';
       }
     }
@@ -1224,15 +1042,10 @@
           : { facingMode: 'environment', width: { ideal: 1280 }, height: { ideal: 720 } }
       };
       streamActual = await navigator.mediaDevices.getUserMedia(constraints);
-      const video = document.getElementById('video-camara');
-      video.srcObject = streamActual;
-      dispositivoActual = deviceId;
+      document.getElementById('video-camara').srcObject = streamActual;
     }
 
-    async function cambiarCamara() {
-      const deviceId = document.getElementById('sel-camara').value;
-      await iniciarStream(deviceId);
-    }
+    async function cambiarCamara() { await iniciarStream(document.getElementById('sel-camara').value); }
 
     function cerrarCamara() {
       if (streamActual) { streamActual.getTracks().forEach(t => t.stop()); streamActual = null; }
@@ -1246,24 +1059,19 @@
       canvas.width = video.videoWidth || 1280;
       canvas.height = video.videoHeight || 720;
       canvas.getContext('2d').drawImage(video, 0, 0);
-
       canvas.toBlob(blob => {
         imagenFile = new File([blob], 'captura.jpg', { type: 'image/jpeg' });
         const url = URL.createObjectURL(blob);
         document.getElementById('preview-img').src = url;
         document.getElementById('preview-container').style.display = 'block';
         cerrarCamara();
-        document.getElementById('camara-container').style.display = 'none';
         ejecutarOCR();
       }, 'image/jpeg', 0.95);
     }
 
-    // ── Upload / Preview ──
+    // ── Upload ──
     const imgInput = document.getElementById('img-input');
-
-    imgInput.addEventListener('change', () => {
-      if (imgInput.files[0]) mostrarPreview(imgInput.files[0]);
-    });
+    imgInput.addEventListener('change', () => { if (imgInput.files[0]) mostrarPreview(imgInput.files[0]); });
 
     function mostrarPreview(file) {
       imagenFile = file;
@@ -1281,8 +1089,7 @@
     }
 
     function clearPreview() {
-      imagenFile = null;
-      imgInput.value = '';
+      imagenFile = null; imgInput.value = '';
       document.getElementById('preview-container').style.display = 'none';
       document.getElementById('upload-area').style.display = 'none';
       document.getElementById('btn-scan').style.display = 'none';
@@ -1292,44 +1099,31 @@
     // ── OCR ──
     async function ejecutarOCR() {
       if (!imagenFile) { toast('Carga una imagen primero', 'err'); return; }
-
       document.getElementById('scan-icon').innerHTML = '<span class="spinner"></span>';
       document.getElementById('scan-text').textContent = 'Analizando...';
       document.getElementById('btn-scan').disabled = true;
-
       try {
         const form = new FormData();
         form.append('imagen', imagenFile);
-
         const resp = await fetch(`${API}/api/ocr/placa`, { method: 'POST', body: form });
         if (!resp.ok) throw new Error(await resp.text());
         const data = await resp.json();
-
         if (data.error) throw new Error(data.error);
-
         ocrPlaca = data.placa;
         ocrTipo = data.tipo_vehiculo || 'carro';
-
         document.getElementById('ocr-placa').textContent = ocrPlaca || '—No detectada—';
         setTipo(ocrTipo);
-
         const conf = Math.round((data.confianza_ocr || 0) * 100);
         document.getElementById('conf-bar').style.width = `${conf}%`;
         document.getElementById('conf-val').textContent = `${conf}%`;
-
         document.getElementById('ocr-result').style.display = 'block';
-
-        if (ocrPlaca) {
-          toast(`✅ Placa detectada: ${ocrPlaca} (${ocrTipo})`, 'ok');
-        } else {
-          toast('⚠️ No se detectó placa válida — verifica o ingresa manual', 'info');
-        }
+        if (ocrPlaca) toast(`✅ Placa detectada: ${ocrPlaca} (${ocrTipo})`, 'ok');
+        else toast('⚠️ No se detectó placa válida — verifica o ingresa manual', 'info');
       } catch (err) {
         toast(`Error OCR: ${err.message}`, 'err');
-        console.error(err);
       } finally {
         document.getElementById('scan-icon').textContent = '🔍';
-        document.getElementById('scan-text').textContent = 'Analizar con YOLOv8 + OCR';
+        document.getElementById('scan-text').textContent = 'Analizar con YOLO + OCR';
         document.getElementById('btn-scan').disabled = false;
       }
     }
@@ -1349,10 +1143,11 @@
       }
     }
 
-    // ── Registro entrada ──
+    // ── Entrada ──
     async function registrarEntrada(placa = ocrPlaca, tipo = ocrTipo) {
       if (!placa) { toast('No hay placa para registrar', 'err'); return; }
-
+      const ok = await verificarCapacidadYRegistrar(placa, tipo);
+      if (!ok) return;
       try {
         const resp = await fetch(`${API}/api/vehiculo/entrada`, {
           method: 'POST',
@@ -1361,7 +1156,6 @@
         });
         const data = await resp.json();
         if (!resp.ok) throw new Error(data.detail || JSON.stringify(data));
-
         toast(data.mensaje, 'ok');
         clearPreview();
         document.getElementById('ocr-result').style.display = 'none';
@@ -1379,7 +1173,7 @@
       document.getElementById('manual-placa').value = '';
     }
 
-    // ── Registro salida ──
+    // ── Salida ──
     async function iniciarSalida(placa) {
       try {
         const resp = await fetch(`${API}/api/vehiculo/salida`, {
@@ -1389,22 +1183,16 @@
         });
         const data = await resp.json();
         if (!resp.ok) throw new Error(data.detail || JSON.stringify(data));
-
         const d = data.data;
         salidaPendiente = null;
-
-        document.getElementById('modal-cobro-val').textContent =
-          `$${(d.valor_cobrado || 0).toLocaleString('es-CO')}`;
-
+        document.getElementById('modal-cobro-val').textContent = `$${(d.valor_cobrado || 0).toLocaleString('es-CO')}`;
         document.getElementById('modal-detail').innerHTML = `
-      <div class="modal-row"><span class="modal-row-key">Placa</span><span class="modal-row-val">${d.placa}</span></div>
-      <div class="modal-row"><span class="modal-row-key">Tipo</span><span class="modal-row-val">${d.nombre_tipo}</span></div>
-      <div class="modal-row"><span class="modal-row-key">Entrada</span><span class="modal-row-val">${formatHora(d.entrada)}</span></div>
-      <div class="modal-row"><span class="modal-row-key">Salida</span><span class="modal-row-val">${formatHora(d.salida)}</span></div>
-      <div class="modal-row"><span class="modal-row-key">Duración</span><span class="modal-row-val">${d.duracion_str}</span></div>
-      <div class="modal-row"><span class="modal-row-key">Detalle</span><span class="modal-row-val">${d.detalle_cobro}</span></div>
-    `;
-
+          <div class="modal-row"><span class="modal-row-key">Placa</span><span class="modal-row-val">${d.placa}</span></div>
+          <div class="modal-row"><span class="modal-row-key">Tipo</span><span class="modal-row-val">${d.nombre_tipo}</span></div>
+          <div class="modal-row"><span class="modal-row-key">Entrada</span><span class="modal-row-val">${formatHora(d.entrada)}</span></div>
+          <div class="modal-row"><span class="modal-row-key">Salida</span><span class="modal-row-val">${formatHora(d.salida)}</span></div>
+          <div class="modal-row"><span class="modal-row-key">Duración</span><span class="modal-row-val">${d.duracion_str}</span></div>
+          <div class="modal-row"><span class="modal-row-key">Detalle</span><span class="modal-row-val">${d.detalle_cobro}</span></div>`;
         document.getElementById('modal-cobro').classList.add('open');
         toast(data.mensaje, 'ok');
         await Promise.all([cargarActivos(), cargarEstadisticas(), cargarHistorial()]);
@@ -1420,70 +1208,54 @@
       document.getElementById('manual-placa').value = '';
     }
 
-    function confirmarSalida() {
-      cerrarModal();
-      toast('✅ Cobro confirmado', 'ok');
-    }
+    function confirmarSalida() { cerrarModal(); toast('✅ Cobro confirmado', 'ok'); }
+    function cerrarModal() { document.getElementById('modal-cobro').classList.remove('open'); }
 
-    function cerrarModal() {
-      document.getElementById('modal-cobro').classList.remove('open');
-    }
-
-    // ── Cargar datos ──
+    // ── Cargar activos ──
     async function cargarActivos() {
       try {
         const resp = await fetch(`${API}/api/vehiculos/activos`);
         const data = await resp.json();
         const lista = document.getElementById('activos-list');
-        const badge = document.getElementById('badge-activos');
-
-        badge.textContent = data.total;
+        document.getElementById('badge-activos').textContent = data.total;
+        actualizarCapacidad(data.total);
 
         if (!data.vehiculos.length) {
           lista.innerHTML = `<div class="empty-state"><div class="empty-icon">🏁</div><div>Sin vehículos activos</div></div>`;
           return;
         }
-
         lista.innerHTML = data.vehiculos.map(v => `
-      <div class="vehiculo-card">
-        <div class="vc-info">
-          <div class="vc-placa">${v.placa}</div>
-          <div class="vc-tipo">${v.nombre_tipo}</div>
-          <div class="vc-tiempo">⏱ ${v.duracion_str} · Entró ${formatHora(v.entrada)}</div>
-        </div>
-        <div style="display: flex; flex-direction: column; align-items: flex-end; gap: 8px;">
-          <div>
-            <div class="vc-cobro-label">Cobro estimado</div>
-            <div class="vc-cobro">$${(v.cobro_actual).toLocaleString('es-CO')}</div>
-          </div>
-          <button class="btn-sm btn-salida" onclick="iniciarSalida('${v.placa}')">🚪 Salida</button>
-        </div>
-      </div>
-    `).join('');
-      } catch (err) {
-        console.error('Error cargando activos:', err);
-      }
+          <div class="vehiculo-card">
+            <div class="vc-info">
+              <div class="vc-placa">${v.placa}</div>
+              <div class="vc-tipo">${v.nombre_tipo}</div>
+              <div class="vc-tiempo">⏱ ${v.duracion_str} · Entró ${formatHora(v.entrada)}</div>
+            </div>
+            <div style="display:flex;flex-direction:column;align-items:flex-end;gap:8px;">
+              <div>
+                <div class="vc-cobro-label">Cobro estimado</div>
+                <div class="vc-cobro">$${(v.cobro_actual).toLocaleString('es-CO')}</div>
+              </div>
+              <button class="btn btn-red btn-sm" onclick="iniciarSalida('${v.placa}')">🚪 Salida</button>
+            </div>
+          </div>`).join('');
+      } catch (err) { console.error('Error cargando activos:', err); }
     }
 
+    // ── Estadísticas ──
     async function cargarEstadisticas() {
       try {
         const resp = await fetch(`${API}/api/estadisticas`);
         const d = await resp.json();
-
         document.getElementById('stat-activos').textContent = d.activos_ahora;
         document.getElementById('stat-ingresos').textContent = `$${(d.ingresos_hoy).toLocaleString('es-CO')}`;
         document.getElementById('stat-motos').textContent = d.motos_hoy;
         document.getElementById('stat-carros').textContent = d.carros_hoy;
-
-        const total = d.vehiculos_hoy;
-        document.getElementById('tk-total').textContent = total;
-        const prom = total > 0 ? Math.round(d.ingresos_hoy / total) : 0;
+        document.getElementById('tk-total').textContent = d.vehiculos_hoy;
+        const prom = d.vehiculos_hoy > 0 ? Math.round(d.ingresos_hoy / d.vehiculos_hoy) : 0;
         document.getElementById('tk-prom').textContent = `$${prom.toLocaleString('es-CO')}`;
-        document.getElementById('tk-cap').textContent = d.activos_ahora;
-
         document.getElementById('h-activos').textContent = d.activos_ahora;
         document.getElementById('h-ingresos').textContent = `$${(d.ingresos_hoy).toLocaleString('es-CO')}`;
-
         if (d.tarifas_vigentes) {
           const t = d.tarifas_vigentes;
           document.getElementById('tarifa-carro-hora').textContent = `$${t.carro.hora.toLocaleString('es-CO')}`;
@@ -1491,86 +1263,71 @@
           document.getElementById('tarifa-moto-hora').textContent = `$${t.moto.hora.toLocaleString('es-CO')}`;
           document.getElementById('tarifa-moto-frac').textContent = `$${t.moto.fraccion.toLocaleString('es-CO')}`;
         }
-      } catch (err) {
-        console.error('Error cargando estadísticas:', err);
-      }
+      } catch (err) { console.error('Error estadísticas:', err); }
     }
 
+    // ── Historial ──
     async function cargarHistorial() {
       try {
         const resp = await fetch(`${API}/api/historial?limite=15`);
         const data = await resp.json();
         const el = document.getElementById('historial-list');
-
-        if (!data.registros.length) {
-          el.innerHTML = '<div class="empty-state"><div>Sin registros aún</div></div>';
-          return;
-        }
-
+        if (!data.registros.length) { el.innerHTML = '<div class="empty-state">Sin registros aún</div>'; return; }
         el.innerHTML = data.registros.map(r => `
-      <div class="historial-item">
-        <div class="hi-top">
-          <span class="hi-placa">${r.placa}</span>
-          <span class="hi-valor">$${(r.valor_cobrado || 0).toLocaleString('es-CO')}</span>
-        </div>
-        <div class="hi-bottom">
-          <span>${r.nombre_tipo} · ${r.duracion_minutos || 0}min</span>
-          <span>${formatHora(r.salida)}</span>
-        </div>
-      </div>
-    `).join('');
-      } catch (err) {
-        console.error('Error cargando historial:', err);
-      }
+          <div class="historial-item">
+            <div class="hi-top">
+              <span class="hi-placa">${r.placa}</span>
+              <span class="hi-valor">$${(r.valor_cobrado || 0).toLocaleString('es-CO')}</span>
+            </div>
+            <div class="hi-bottom">
+              <span>${r.nombre_tipo} · ${r.duracion_minutos || 0}min</span>
+              <span>${formatHora(r.salida)}</span>
+            </div>
+          </div>`).join('');
+      } catch (err) { console.error('Error historial:', err); }
     }
 
-    // ── Helpers ──
     function formatHora(iso) {
       if (!iso) return '—';
       return new Date(iso).toLocaleTimeString('es-CO', { hour: '2-digit', minute: '2-digit' });
     }
 
-    // ── Sistema de Reservas ──
+    // ── Reservas ──
     async function cargarReservas() {
       try {
         const resp = await fetch(`${API}/api/reservas`);
         const data = await resp.json();
         const lista = document.getElementById('reservas-list');
-
         if (!data.reservas.length) {
           lista.innerHTML = `<div class="empty-state">Sin reservas pendientes</div>`;
           return;
         }
-
+        const ahora = new Date();
         lista.innerHTML = data.reservas.map(r => {
           const fechaHora = r.hora_esperada ? new Date(r.hora_esperada) : null;
+          const vencida = fechaHora && fechaHora < ahora;
           const horaStr = fechaHora && !isNaN(fechaHora)
             ? fechaHora.toLocaleString('es-CO', { day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit' })
             : r.hora_esperada;
           return `
-            <div class="vehiculo-card" style="border-left: 3px solid var(--blue);">
+            <div class="reserva-card${vencida ? ' vencida' : ''}">
               <div class="vc-info">
-                <div class="vc-placa">${r.placa}</div>
+                <div class="vc-placa">
+                  ${r.placa}
+                  ${vencida ? '<span class="reserva-badge-vencida">Vencida</span>' : ''}
+                </div>
                 <div class="vc-tipo">${r.nombre_tipo}</div>
                 <div class="vc-tiempo">🕐 Llegada esperada: ${horaStr}</div>
               </div>
-              <div style="display:flex; gap:6px; flex-direction:column; align-items:flex-end;">
-                <button class="btn-sm" onclick="confirmarLlegadaReserva('${r.placa}')"
-                  style="background:rgba(34,214,150,0.15); color:var(--green); border:1px solid var(--green);">
-                  ✔️ Llegada
-                </button>
-                <button class="btn-sm btn-salida" onclick="cancelarReserva('${r.placa}')">
-                  ✕ Cancelar
-                </button>
+              <div style="display:flex;gap:6px;flex-direction:column;align-items:flex-end;">
+                ${!vencida ? `<button class="btn btn-teal btn-sm" onclick="confirmarLlegadaReserva('${r.placa}')">✔ Llegada</button>` : ''}
+                <button class="btn btn-red btn-sm" onclick="cancelarReserva('${r.placa}')">✕ Cancelar</button>
               </div>
             </div>`;
         }).join('');
-      } catch (err) {
-        console.error('Error cargando reservas:', err);
-      }
+      } catch (err) { console.error('Error reservas:', err); }
     }
 
-    // Para crear con fecha
     async function crearReserva() {
       const placa = document.getElementById('res-placa').value.trim().toUpperCase();
       const tipo = document.getElementById('res-tipo').value;
@@ -1578,13 +1335,17 @@
       const hora = document.getElementById('res-hora').value;
 
       if (!placa || !fecha || !hora) { toast('Completa todos los campos', 'err'); return; }
-
-      // Validar formato de placa mínimamente
       if (placa.length < 5 || placa.length > 6) { toast('Placa inválida (5-6 caracteres)', 'err'); return; }
 
-      // Combinar fecha y hora en un string ISO legible
-      const hora_esperada = `${fecha}T${hora}:00`;
+      // ── Validar que la fecha/hora no sea pasada ──
+      const fechaHoraSeleccionada = new Date(`${fecha}T${hora}:00`);
+      const ahora = new Date();
+      if (fechaHoraSeleccionada <= ahora) {
+        toast('❌ No puedes reservar en una fecha u hora que ya pasó', 'err');
+        return;
+      }
 
+      const hora_esperada = `${fecha}T${hora}:00`;
       try {
         const resp = await fetch(`${API}/api/reservas`, {
           method: 'POST',
@@ -1593,7 +1354,6 @@
         });
         const data = await resp.json();
         if (!resp.ok) throw new Error(data.detail || JSON.stringify(data));
-
         toast(data.mensaje, 'ok');
         document.getElementById('res-placa').value = '';
         document.getElementById('res-hora').value = '';
@@ -1604,48 +1364,49 @@
       }
     }
 
-    // Nueva función de cancelación
     async function cancelarReserva(placa) {
-      if (!confirm(`¿Estás seguro de cancelar la reserva de ${placa}?`)) return;
-
+      if (!confirm(`¿Cancelar la reserva de ${placa}?`)) return;
       try {
         const resp = await fetch(`${API}/api/reservas/${placa}`, { method: 'DELETE' });
         if (!resp.ok) throw new Error('Error al cancelar');
         toast(`Reserva cancelada`, 'ok');
         cargarReservas();
-      } catch (err) {
-        toast('Error: ' + err.message, 'err');
-      }
+      } catch (err) { toast('Error: ' + err.message, 'err'); }
     }
 
     async function confirmarLlegadaReserva(placa) {
       try {
+        const ok = await verificarCapacidadYRegistrar(placa, '');
+        if (!ok) return;
         const resp = await fetch(`${API}/api/reservas/${placa}/llegada`, { method: 'POST' });
         const data = await resp.json();
         if (!resp.ok) throw new Error(data.detail || 'Error');
-
         toast(`Llegada confirmada: ${placa}`, 'ok');
         await Promise.all([cargarActivos(), cargarReservas()]);
-      } catch (err) {
-        toast(`❌ ${err.message}`, 'err');
+      } catch (err) { toast(`❌ ${err.message}`, 'err'); }
+    }
+
+    // ── Establecer mínimo de fecha a hoy para el campo de reservas ──
+    function fijarFechaMinima() {
+      const hoy = new Date().toISOString().split('T')[0];
+      const fechaInput = document.getElementById('res-fecha');
+      if (fechaInput) {
+        fechaInput.min = hoy;
+        fechaInput.value = hoy;
       }
     }
 
     // ── Init ──
     async function init() {
-      // Se agregó cargarReservas() al inicio
+      fijarFechaMinima();
       await Promise.all([cargarActivos(), cargarEstadisticas(), cargarHistorial(), cargarReservas()]);
-
-      // Auto-refresh cada 30s incluyendo reservas
       setInterval(async () => {
         await Promise.all([cargarActivos(), cargarEstadisticas(), cargarReservas()]);
       }, 30000);
-
       setInterval(cargarHistorial, 60000);
     }
 
     init();
   </script>
 </body>
-
 </html>
